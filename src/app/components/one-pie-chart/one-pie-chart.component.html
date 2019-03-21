@@ -1,0 +1,23 @@
+<app-card [title]="title" class="shares-exchange" (onModalOpen)="openModal()">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="shares-details">
+        <h6>Shares Bought <i class="feather icon-log-in"></i></h6>
+        <!--<span class="anomally">Anomally</span>
+        <span class="anomally-details">Tesla 20% High then last month</span>-->
+      </div>
+      <div id={{ID1}} style="width: 100%; height: 15vh"></div>
+    </div>
+  </div>
+
+  <div class="row for-modal">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="shares-details">
+        <h6>Shares Bought <i class="feather icon-log-in"></i></h6>
+        <span class="anomally">Anomally</span>
+        <span class="anomally-details">Tesla 20% High then last month</span>
+      </div>
+      <div id={{ID1Modal}} style="width: 100%; height: 40vh"></div>
+    </div>
+  </div>
+</app-card>

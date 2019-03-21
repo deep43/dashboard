@@ -1,0 +1,48 @@
+<app-card [title]="title" class="shares-exchange" (onModalOpen)="openModal()">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="shares-details">
+        Shares
+          <div class="btn-group" btnRadioGroup>
+            <mat-radio-group class="pull-right sector-clients" [(ngModel)]="boughtOrSold">
+              <mat-radio-button (click)="showBoughtData()" value="bought">Bought</mat-radio-button>
+              <mat-radio-button (click)="showSoldData()" value="sold">Sold</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <!--<i class="feather icon-log-in"></i>-->
+        <!--<div class="anomally">Anomally</div>
+        <div class="anomally-details">Tesla 20% High then last month</div>-->
+      </div>
+      <div id={{ID1}} style="width: 100%; height: 15vh"></div>
+    </div>
+    <!--<div class="col-12 col-sm-12 col-md-2 col-lg-2">
+      <div class="shares-details">
+        <h6>Shares
+          <span class="rotate"><i class="feather icon-log-in"></i></span></h6>
+        <div class="anomally">Anomally</div>
+        <div class="anomally-details">Tesla 20% High then last month</div>
+      </div>
+      <div id={{ID2}} style="width: 100%; height: 18vh"></div>
+    </div>-->
+  </div>
+
+  <div class="row for-modal">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="shares-details">
+        <h6>Shares Bought <span></span><i class="feather icon-log-in"></i></h6>
+        <div class="anomally">Anomally</div>
+        <div class="anomally-details">Tesla 20% High then last month</div>
+      </div>
+      <div id={{ID1Modal}} style="width: 100%; height: 40vh"></div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="shares-details">
+        <h6>Shares Sold
+          <span class="rotate"><i class="feather icon-log-in"></i></span></h6>
+        <div class="anomally">Anomally</div>
+        <div class="anomally-details">Tesla 20% High then last month</div>
+      </div>
+      <div id={{ID2Modal}} style="width: 100%; height: 40vh"></div>
+    </div>
+  </div>
+</app-card>

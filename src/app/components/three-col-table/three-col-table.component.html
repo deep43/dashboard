@@ -1,0 +1,19 @@
+<div class="three-col-table">
+  <div class="row">
+    <div class="title col-12 col-sm-12 col-md-12">{{title}}</div>
+  </div>
+  <div class="row columns">
+    <div class="col-12" *ngFor="let column of columns; let colIndex = index"
+         [ngClass]='{"col-sm-6 col-md-6": colIndex === 0,
+    "col-sm-2 col-md-2 text-center": colIndex !== 0}'>{{column.name}}
+    </div>
+  </div>
+  <div class="row table-row" *ngFor="let row of rowData; let rowIndex = index">
+    <div class="col-12"
+         *ngFor="let rowCol of row; let rowColIndex = index"
+      [ngClass]='{"col-sm-6 col-md-6": rowColIndex === 0,
+      "col-sm-2 col-md-2 text-center": rowColIndex !== 0}'>
+      {{rowCol.name}}
+    </div>
+  </div>
+</div>

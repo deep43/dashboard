@@ -1,0 +1,38 @@
+.shares-details{
+  i{
+    padding-left: 10px;
+  }
+}
+.anomally{
+  color: #8a8a8a;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.anomally-details{
+  padding-left: 10px;
+  color: #5fec5f;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.shares-exchange{
+  .mat-card-header-text{
+    margin: 0;
+  }
+  .mat-card-title{
+    margin-bottom: 4px;
+  }
+  .rotate{
+    display: inline-block;
+    transform: rotate(180deg);
+    padding-right: 10px;
+  }
+}
+.shares-details{
+  h6{
+    margin-bottom: 2px;
+  }
+  padding-top: 1vh;
+  padding-bottom: 2vh;
+}

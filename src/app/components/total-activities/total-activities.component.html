@@ -1,0 +1,30 @@
+<div class="row home-page-row">
+  <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+    <app-card [title]="'20500'" (onModalOpen)="openModalEmail()">
+      <span class="desc">Total Emails</span>
+      <div id="email-activities" style="width: 100%; height: 14vh"></div>
+      <div class="for-modal" id="email-activities-modal" style="width: 100%; height: 40vh"></div>
+    </app-card>
+  </div>
+  <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+    <app-card [title]="'20500'" (onModalOpen)="openModal()">
+      <span class="desc">Total Calls</span>
+      <div id="call-activities" style="width: 100%; height: 14vh"></div>
+      <div class="for-modal" id="call-activities-modal" style="width: 100%; height: 40vh"></div>
+    </app-card>
+  </div>
+  <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+    <app-card [title]="'28600'" (onModalOpen)="openModalMeetings()">
+      <span class="desc">Total Meetings</span>
+      <div id="meetings-activities" style="width: 100%; height: 14vh"></div>
+      <div class="for-modal" id="meetings-activities-modal" style="width: 100%; height: 40vh"></div>
+    </app-card>
+  </div>
+  <div class="col-12 col-sm-12 col-md-3 col-lg-3">
+    <app-card [title]="'69600'" (onModalOpen)="openModalCombined()">
+      <span class="desc">Total Combined</span>
+      <div id="combined-activities" style="width: 100%; height: 14vh"></div>
+      <div class="for-modal" id="combined-activities-modal" style="width: 100%; height: 40vh"></div>
+    </app-card>
+  </div>
+</div>

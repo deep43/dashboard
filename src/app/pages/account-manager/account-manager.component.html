@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 heading-container">
+    <h5 class="dashboard-heading">Account Manager Activity</h5>
+    <input type="text" matInput
+           ngxDaterangepickerMd class="form-control date-range"
+           [locale]="{format: 'MMMM DD, YYYY'}"
+           [alwaysShowCalendars]="true"
+           [showDropdowns]="true"
+           [(ngModel)]="selected"
+           [ranges]="ranges"/>
+  </div>
+</div>
+<app-total-activities></app-total-activities>
+<div class="row home-page-row">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-account-activity></app-account-activity>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-weekly-performance></app-weekly-performance>
+  </div>
+</div>
+<div class="row home-page-row">
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-individual-metrics></app-individual-metrics>
+  </div>
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-activity-comission></app-activity-comission>
+  </div>
+  <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+    <app-activity-comparison title="Activity Comparison"
+                             ID1="activity-comparison" ID1Modal="activity-comparison-modal">
+
+    </app-activity-comparison>
+  </div>
+</div>

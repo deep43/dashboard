@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 heading-container">
+    <h5 class="dashboard-heading">Barrick Gold</h5>
+    <input type="text" matInput
+           ngxDaterangepickerMd class="form-control date-range"
+           [locale]="{format: 'MMMM DD, YYYY'}"
+           [alwaysShowCalendars]="true"
+           [showDropdowns]="true"
+           [(ngModel)]="selected"
+           [ranges]="ranges"/>
+  </div>
+  <button mat-fab class="float-on-dashboard" (click)="openModal()">
+    <i class="feather icon-file-text"></i>
+  </button>
+</div>
+<!--<div class="clients-chart-container">-->
+<div class="row client-search-row">
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-shares-volume></app-shares-volume>
+  </div>
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-client-performance></app-client-performance>
+  </div>
+  <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+    <app-one-pie-chart title="Top traded symbols" ID1="top-clients-by-date"
+                       ID1Modal="top-clients-by-date-modal"></app-one-pie-chart>
+  </div>
+</div>
+<div class="row client-search-row">
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-unique-clients></app-unique-clients>
+  </div>
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-activity-volume></app-activity-volume>
+  </div>
+  <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+    <app-one-pie-chart title="Client insights" ID1="top-25-shares-traded"
+                       ID1Modal="top-25-shares-traded-modal"></app-one-pie-chart>
+  </div>
+</div>
+<div class="row client-search-row">
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-commisions></app-commisions>
+  </div>
+  <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+    <app-top-buy-performance></app-top-buy-performance>
+  </div>
+  <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+    <app-one-pie-chart title="Fund sector ratio" ID1="top-sectors" ID1Modal="top-sectors-modal"></app-one-pie-chart>
+  </div>
+</div>
+<!--
+</div>
+-->
+
+<div class="modal fade print-modal" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="dialog-events-name">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title pull-left">Select Date for Print</h5>
+
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="text" matInput
+               ngxDaterangepickerMd class="form-control date-range"
+               [locale]="{format: 'MMMM DD, YYYY'}"
+               [alwaysShowCalendars]="true"
+               [showDropdowns]="true"
+               [(ngModel)]="selected"
+               [ranges]="ranges"/>
+        <button class="btn btn-primary print-button" [routerLink]="['/report']">
+          <i class="feather icon-printer"></i>Generate Report
+        </button>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

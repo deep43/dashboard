@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 heading-container">
+    <h5 class="dashboard-heading">Client Report Card</h5>
+  </div>
+</div>
+<div class="container">
+  <div class="row" id="print-section-container">
+    <div class="col-12 col-sm-12 print-section">
+      <div class="row heading-section">
+        <div class="col-8 col-sm-8 col-md-8">
+          <h3>Goldman Sachs</h3>
+          <div>Instituional Equity Client Service Report</div>
+          <div>Jan 1, 2018 - Apr 30, 2018</div>
+        </div>
+        <div class="col-4 col-sm-4 col-md-4">
+          <img src="./assets/dashboard_images/cibc_logo.png" class="print-logo"/>
+        </div>
+      </div>
+      <app-three-col-table [title]="'Service Summary'"
+                           [columns]="columns1"
+                           [rowData]="rowData1">
+
+      </app-three-col-table>
+      <div class="row totals">
+        <div class="col-12 col-sm-6 col-md-6">Total Meetings</div>
+        <div class="col-12 col-sm-2 col-md-2">28</div>
+        <div class="col-12 col-sm-2 col-md-2">12</div>
+        <div class="col-12 col-sm-2 col-md-2">68%</div>
+      </div>
+      <app-four-col-table [title]="'Meeting Breakdown'"
+                          [columns]="columns5"
+                          [rowData]="rowData5">
+
+      </app-four-col-table>
+      <app-three-col-table [title]="'Corporate Access Analyst Marketing'"
+                           [columns]="columns2"
+                           [rowData]="rowData1">
+
+      </app-three-col-table>
+      <app-three-col-table [title]="'Corporate Marketing'"
+                           [columns]="columns3"
+                           [rowData]="rowData1">
+
+      </app-three-col-table>
+      <app-three-col-table [title]="'Corporate and Special Events'"
+                           [columns]="columns4"
+                           [rowData]="rowData4">
+
+      </app-three-col-table>
+      <div class="row print-footer">
+        <div class="col-12 col-sm-12 col-md-12 heading">CIBC Corporate Access Team</div>
+        <div class="col-12 col-sm-12 col-md-12">Confidential</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 print-btn-container">
+    <button class="btn btn-primary btn-lg print-page" (click)="printReport()" >Print
+    </button>
+    <button class="btn btn-danger btn-lg cancel">Cancel</button>
+  </div>
+</div>

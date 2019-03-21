@@ -1,0 +1,26 @@
+.three-col-table{
+  color: #212529;
+  .title{
+    color: #67b7dc;
+    text-transform: capitalize;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    font-size: 28px;
+  }
+
+  .columns{
+    font-size: 18px;
+    font-weight: 600;
+    padding: 5px 0;
+    border-top: 1px solid #c1c1c1;
+  }
+
+  .table-row{
+    padding: 5px 0;
+    border-top: 1px solid #c1c1c1;
+  }
+
+  .text-center{
+    text-align: center;
+  }
+}

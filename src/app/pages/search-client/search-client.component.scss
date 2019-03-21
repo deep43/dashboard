@@ -1,0 +1,44 @@
+.clients-chart-row{
+  flex-grow: 1;
+
+  /*.col-lg-5{
+    flex-grow: 5;
+  }
+  .col-lg-2{
+    flex-grow: 2;
+  }*/
+}
+.client-search-row{
+  padding: 10px 0;
+}
+.clients-chart-container{
+  display: flex;
+  flex-direction: column;
+  background: orange;
+}
+
+.print-modal{
+  .modal-dialog{
+    max-width: 600px;
+  }
+  .date-range{
+    max-width: 55%;
+  }
+
+  .md-drppicker.double {
+    width: 600px;
+  }
+
+  .print-button{
+    margin-left: 30px;
+    margin-bottom: 5px;
+    background: #67b7dc;
+    color: #212529;
+    font-size: 16px;
+    font-weight: 600;
+
+    i{
+      padding-right: 5px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+<app-card [title]="'Fund list'" (onModalOpen)="openModal()">
+  <div class="btn-group" btnRadioGroup>
+    <mat-radio-group class="pull-right sector-clients" [(ngModel)]="sectorOrClient">
+      <mat-radio-button (click)="showSectorData()" value="Sectors">Sectors</mat-radio-button>
+      <mat-radio-button (click)="showClientData()" value="Clients">Clients</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div id="chartdiv7" style="width: 100%; height: 19vh"></div>
+  <div class="for-modal" id="chartdiv7Modal" style="width: 100%; height: 40vh"></div>
+</app-card>

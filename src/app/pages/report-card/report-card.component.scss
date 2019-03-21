@@ -1,0 +1,57 @@
+.print-section{
+  background: white;
+  color: #8a8a8a;
+  padding: 20px 30px !important;
+
+  .print-logo{
+    float: right;
+  }
+}
+.print-btn-container{
+  padding: 20px 0;
+  text-align: center;
+
+  .btn{
+    margin-left: 20px;
+  }
+
+  .print-page{
+    background: #67b7dc;
+    box-shadow: 0 0 0 0.2rem #67b7dc;
+    border-color: #67b7dc;
+
+    &:focus, &:hover, &:active{
+      background: #67b7dc !important;
+      box-shadow: 0 0 0 0.2rem #67b7dc !important;
+      border-color: #67b7dc !important;;
+    }
+  }
+
+  .cancel{
+    background: #ff5722;
+    box-shadow: 0 0 0 0.2rem #ff5722;
+    border-color: #ff5722;
+
+    &:focus, &:hover, &:active{
+      background: #ff5722 !important;
+      box-shadow: 0 0 0 0.2rem #ff5722 !important;
+      border-color: #ff5722 !important;
+    }
+  }
+}
+.totals {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 0;
+  text-align: center;
+  border-top: 1px solid #c1c1c1;
+  border-bottom: 1px solid #c1c1c1;
+}
+.print-footer{
+  border-top: 1px solid #c1c1c1;
+  padding-top: 30px;
+  .heading{
+    font-size: 18px;
+    font-weight: 800;
+  }
+}
