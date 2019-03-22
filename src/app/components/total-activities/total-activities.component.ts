@@ -76,6 +76,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
     dateAxis.renderer.labels.template.disabled = true;
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
@@ -178,6 +179,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisEmails.renderer.grid.template.location = 0;
     dateAxisEmails.renderer.minGridDistance = 50;
     dateAxisEmails.renderer.labels.template.disabled = true;
+    dateAxisEmails.skipEmptyPeriods= true;
 
     let valueAxisEmails = chartEmails.yAxes.push(new am4charts.ValueAxis());
     valueAxisEmails.logarithmic = true;
@@ -280,6 +282,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisMeetings.renderer.grid.template.location = 0;
     dateAxisMeetings.renderer.minGridDistance = 50;
     dateAxisMeetings.renderer.labels.template.disabled = true;
+    dateAxisMeetings.skipEmptyPeriods= true;
 
     let valueAxisMeetings = chartMeetings.yAxes.push(new am4charts.ValueAxis());
     valueAxisMeetings.logarithmic = true;
@@ -382,6 +385,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisCombined.renderer.grid.template.location = 0;
     dateAxisCombined.renderer.minGridDistance = 50;
     dateAxisCombined.renderer.labels.template.disabled = true;
+    dateAxisCombined.skipEmptyPeriods= true;
 
     let valueAxisCombined = chartCombined.yAxes.push(new am4charts.ValueAxis());
     valueAxisCombined.logarithmic = true;
@@ -487,6 +491,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
@@ -590,6 +595,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisEmails.renderer.grid.template.location = 0;
     dateAxisEmails.renderer.minGridDistance = 50;
     dateAxisEmails.renderer.labels.template.disabled = true;
+    dateAxisEmails.skipEmptyPeriods= true;
 
     let valueAxisEmails = chartEmails.yAxes.push(new am4charts.ValueAxis());
     valueAxisEmails.logarithmic = true;
@@ -698,6 +704,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisMeetings.renderer.grid.template.location = 0;
     dateAxisMeetings.renderer.minGridDistance = 50;
     dateAxisMeetings.renderer.labels.template.disabled = true;
+    dateAxisMeetings.skipEmptyPeriods= true;
 
     let valueAxisMeetings = chartMeetings.yAxes.push(new am4charts.ValueAxis());
     valueAxisMeetings.logarithmic = true;
@@ -805,6 +812,7 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     dateAxisCombined.renderer.grid.template.location = 0;
     dateAxisCombined.renderer.minGridDistance = 50;
     dateAxisCombined.renderer.labels.template.disabled = true;
+    dateAxisCombined.skipEmptyPeriods= true;
 
     let valueAxisCombined = chartCombined.yAxes.push(new am4charts.ValueAxis());
     valueAxisCombined.logarithmic = true;

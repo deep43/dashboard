@@ -90,6 +90,7 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       // dateAxis.renderer.grid.template.location = 0;
       // dateAxis.renderer.minGridDistance = 30;
+      dateAxis.skipEmptyPeriods= true;
 
       let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
       valueAxis1.title.text = 'Number Of Shares';
@@ -282,6 +283,7 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
     // dateAxis.renderer.grid.template.location = 0;
     // dateAxis.renderer.minGridDistance = 30;
+    dateAxisModal.skipEmptyPeriods= true;
 
     let valueAxis1Modal = chartModal.yAxes.push(new am4charts.ValueAxis());
     valueAxis1Modal.title.text = 'Number Of Shares';

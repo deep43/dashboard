@@ -152,7 +152,7 @@
                   <div class="form-group">
                     <input type="text" class="form-control"
                            placeholder="{{item.title}}" (focus)="onFocusSearchInput($event, item)"
-                           (blur)="onFocusSearchInput($event, item)">
+                           (blur)="onFocusSearchInput($event, item)" (keyup)="onChangeSubmenuWithSearch($event, item)">
                     <i class="icofont icofont-search search-icon" (click)="goToPage(item.id)"></i>
                   </div>
                 </form>

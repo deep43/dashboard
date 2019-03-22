@@ -134,6 +134,7 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     dateAxis4.renderer.minGridDistance = 50;
     dateAxis4.renderer.grid.template.disabled = true;
     dateAxis4.renderer.fullWidthTooltip = true;
+    dateAxis4.skipEmptyPeriods= true;
 
     let distanceAxis4 = chart4.yAxes.push(new am4charts.ValueAxis());
     distanceAxis4.title.text = 'Number Of Clients';
@@ -317,6 +318,7 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     dateAxis4Modal.renderer.minGridDistance = 50;
     dateAxis4Modal.renderer.grid.template.disabled = true;
     dateAxis4Modal.renderer.fullWidthTooltip = true;
+    dateAxis4Modal.skipEmptyPeriods= true;
 
     let distanceAxis4Modal = chartModal.yAxes.push(new am4charts.ValueAxis());
     distanceAxis4Modal.title.text = 'Number Of Clients';

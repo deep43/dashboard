@@ -86,6 +86,7 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     // dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 10;
     dateAxis.title.text = 'Activities';
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis1.title.text = 'Client Commissions';
@@ -227,6 +228,7 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     // dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 10;
     dateAxis.title.text = 'Activities';
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis1.title.text = 'Client Commissions';

@@ -33,6 +33,7 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
 // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 50;
+    dateAxis.skipEmptyPeriods= true;
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {
@@ -165,6 +166,7 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
 // Create axes
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
     dateAxisModal.renderer.minGridDistance = 50;
+    dateAxisModal.skipEmptyPeriods= true;
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {

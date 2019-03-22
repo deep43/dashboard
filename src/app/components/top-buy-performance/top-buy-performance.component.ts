@@ -73,6 +73,7 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
@@ -176,6 +177,7 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
+    dateAxis.skipEmptyPeriods= true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
