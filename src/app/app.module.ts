@@ -43,6 +43,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ActivityComissionComponent} from './components/activity-comission/activity-comission.component';
 import {ActivityComparisonComponent} from './components/activity-comparison/activity-comparison.component';
 import {TotalActivitiesComponent} from './components/total-activities/total-activities.component';
+import {ClickOutsideModule} from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import {TotalActivitiesComponent} from './components/total-activities/total-acti
       completeEvents: [NavigationEnd],
       delay: 1000,
       id: 'router-progressbar'
-    })
+    }),
+    ClickOutsideModule
   ],
   exports: [ModalModule],
   providers: [],

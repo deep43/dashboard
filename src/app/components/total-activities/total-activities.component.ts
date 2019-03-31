@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-total-activities',
@@ -8,8 +9,8 @@ import * as am4charts from '@amcharts/amcharts4/charts';
   styleUrls: ['./total-activities.component.scss']
 })
 export class TotalActivitiesComponent implements OnInit, AfterViewInit {
-
-  constructor() {
+  changed = false;
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -485,12 +486,14 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
       }, {
         'date': '2012-03-15',
         'price': 147
-      }];
+      }
+      ];
 
 // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
+    dateAxis.renderer.labels.template.disabled = true;
     dateAxis.skipEmptyPeriods= true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
@@ -504,7 +507,17 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     series.tensionX = 0.8;
     series.strokeWidth = 3;
     series.stroke = am4core.color('#6694DC');
-
+    const that = this;
+    series.segments.template.interactionsEnabled = true;
+    series.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.circle.fill = am4core.color('#fff');
     bullet.circle.strokeWidth = 3;
@@ -609,7 +622,17 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     seriesEmails.tensionX = 0.8;
     seriesEmails.strokeWidth = 3;
     // seriesEmails.stroke = am4core.color('#9ccc65');
-
+    const that = this;
+    seriesEmails.segments.template.interactionsEnabled = true;
+    seriesEmails.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let bulletEmails = seriesEmails.bullets.push(new am4charts.CircleBullet());
     bulletEmails.circle.fill = am4core.color('#fff');
     bulletEmails.circle.strokeWidth = 3;
@@ -718,7 +741,17 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     seriesMeetings.tensionX = 0.8;
     seriesMeetings.strokeWidth = 3;
     seriesMeetings.stroke = am4core.color('#8066DC');
-
+    const that = this;
+    seriesMeetings.segments.template.interactionsEnabled = true;
+    seriesMeetings.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let bulletMeetings = seriesMeetings.bullets.push(new am4charts.CircleBullet());
     bulletMeetings.circle.fill = am4core.color('#fff');
     bulletMeetings.circle.strokeWidth = 3;
@@ -826,7 +859,17 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     seriesCombined.tensionX = 0.8;
     seriesCombined.strokeWidth = 3;
     seriesCombined.stroke = am4core.color('#ffd507');
-
+    const that = this;
+    seriesCombined.segments.template.interactionsEnabled = true;
+    seriesCombined.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let bulletCombined = seriesCombined.bullets.push(new am4charts.CircleBullet());
     bulletCombined.circle.fill = am4core.color('#fff');
     bulletCombined.circle.strokeWidth = 3;

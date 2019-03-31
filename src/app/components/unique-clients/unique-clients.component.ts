@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-unique-clients',
@@ -8,8 +9,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
   styleUrls: ['./unique-clients.component.scss']
 })
 export class UniqueClientsComponent implements OnInit, AfterViewInit {
+  changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -134,7 +136,7 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     dateAxis4.renderer.minGridDistance = 50;
     dateAxis4.renderer.grid.template.disabled = true;
     dateAxis4.renderer.fullWidthTooltip = true;
-    dateAxis4.skipEmptyPeriods= true;
+    dateAxis4.skipEmptyPeriods = true;
 
     let distanceAxis4 = chart4.yAxes.push(new am4charts.ValueAxis());
     distanceAxis4.title.text = 'Number Of Clients';
@@ -318,7 +320,7 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     dateAxis4Modal.renderer.minGridDistance = 50;
     dateAxis4Modal.renderer.grid.template.disabled = true;
     dateAxis4Modal.renderer.fullWidthTooltip = true;
-    dateAxis4Modal.skipEmptyPeriods= true;
+    dateAxis4Modal.skipEmptyPeriods = true;
 
     let distanceAxis4Modal = chartModal.yAxes.push(new am4charts.ValueAxis());
     distanceAxis4Modal.title.text = 'Number Of Clients';
@@ -346,6 +348,24 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     distanceSeries4Modal.tooltipText = '{valueY} Clients';
     distanceSeries4Modal.name = 'Current Period';
     distanceSeries4Modal.columns.template.fillOpacity = 0.7;
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    distanceSeries4Modal.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 
     let disatnceState4Modal = distanceSeries4Modal.columns.template.states.create('hover');
     disatnceState4Modal.properties.fillOpacity = 0.9;
@@ -358,7 +378,16 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     latitudeSeries4Modal.name = 'Last Year Comparison';
     latitudeSeries4Modal.strokeWidth = 2;
     latitudeSeries4Modal.tooltipText = '{valueY} Clients';
-
+    latitudeSeries4Modal.segments.template.interactionsEnabled = true;
+    latitudeSeries4Modal.segments.template.events.on(
+      'hit',
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let latitudeBullet4Modal = latitudeSeries4Modal.bullets.push(new am4charts.CircleBullet());
     latitudeBullet4Modal.circle.fill = am4core.color('#fff');
     latitudeBullet4Modal.circle.strokeWidth = 2;

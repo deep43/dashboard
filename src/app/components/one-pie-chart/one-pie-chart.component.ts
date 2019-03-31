@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-one-pie-chart',
@@ -50,8 +51,9 @@ export class OnePieChartComponent implements OnInit, AfterViewInit {
       'litres': 50
     }
   ];
+  changed = false;
 
-  constructor() { }
+  constructor(private refreshService: RefreshService) { }
 
   ngOnInit() {
   }
@@ -99,7 +101,11 @@ export class OnePieChartComponent implements OnInit, AfterViewInit {
     pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
     pieSeries.slices.template.tooltipText = '[font-size: 20]{countryDetails} - {litres}';
-
+    const that = this;
+    pieSeries.slices.template.events.on('hit', function (ev) {
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
     pieSeries.hiddenState.properties.endAngle = -90;

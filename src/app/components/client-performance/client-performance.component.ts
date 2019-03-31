@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-client-performance',
@@ -8,8 +9,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
   styleUrls: ['./client-performance.component.scss']
 })
 export class ClientPerformanceComponent implements OnInit, AfterViewInit {
+  private changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -443,6 +445,17 @@ export class ClientPerformanceComponent implements OnInit, AfterViewInit {
     series.dataFields.categoryX = 'year';
     series.strokeWidth = 2;
     series.tensionX = 0.77;
+    const that = this;
+    series.segments.template.interactionsEnabled = true;
+    series.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
 
     let range = valueAxis.createSeriesRange(series);
     range.value = 0;

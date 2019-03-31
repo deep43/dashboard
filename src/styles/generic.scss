@@ -3,22 +3,7 @@
     margin-bottom: 5px;
   }
 }
-
-@media print {
-  html * {
-    visibility: hidden;
-  }
-  #print-section-container, #print-section-container * {
-    visibility: visible;
-  }
-  #print-section-container {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 0;
-
-    .title{
-      padding: 5px 10px;
-    }
-  }
-}
+/*
+.mat-drawer-content{
+  overflow: hidden !important;
+}*/

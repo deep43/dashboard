@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-commisions',
@@ -10,39 +11,39 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 export class CommisionsComponent implements OnInit, AfterViewInit {
   dataSectors = [
     {
-    'country': '\n\nMining',
-    'visits': 2025
-  }, {
-    'country': 'Unknown',
-    'visits': 1882
-  }, {
-    'country': 'Oil & Gas',
-    'visits': 1809
-  }, {
-    'country': 'Precious\nMetals',
-    'visits': 1322
-  }, {
-    'country': 'Financial\nInstitutions',
-    'visits': 1122
-  }, {
-    'country': 'Power',
-    'visits': 1114
-  }, {
-    'country': 'Real Estate',
-    'visits': 984
-  }, {
-    'country': 'Energy',
-    'visits': 711
-  }, {
-    'country': 'Diversified',
-    'visits': 665
-  }, {
-    'country': 'Industrials',
-    'visits': 580
-  }, {
-    'country': 'Technology\nHardware',
-    'visits': 443
-  }
+      'country': '\n\nMining',
+      'visits': 2025
+    }, {
+      'country': 'Unknown',
+      'visits': 1882
+    }, {
+      'country': 'Oil & Gas',
+      'visits': 1809
+    }, {
+      'country': 'Precious\nMetals',
+      'visits': 1322
+    }, {
+      'country': 'Financial\nInstitutions',
+      'visits': 1122
+    }, {
+      'country': 'Power',
+      'visits': 1114
+    }, {
+      'country': 'Real Estate',
+      'visits': 984
+    }, {
+      'country': 'Energy',
+      'visits': 711
+    }, {
+      'country': 'Diversified',
+      'visits': 665
+    }, {
+      'country': 'Industrials',
+      'visits': 580
+    }, {
+      'country': 'Technology\nHardware',
+      'visits': 443
+    }
   ];
   sectorOrClient = 'Sectors';
 
@@ -50,106 +51,49 @@ export class CommisionsComponent implements OnInit, AfterViewInit {
 
   dataClients = [
     {
-    'country': '\n\nClient 1',
-    'visits': 1900
-  }, {
-    'country': 'Client 2',
-    'visits': 1700
-  }, {
-    'country': 'Client 3',
-    'visits': 1500
-  }, {
-    'country': 'Client 4',
-    'visits': 1300
-  }, {
-    'country': 'Client 5',
-    'visits': 1100
-  }, {
-    'country': 'Client 6',
-    'visits': 900
-  }, {
-    'country': 'Client 7',
-    'visits': 800
-  }, {
-    'country': 'Client 8',
-    'visits': 711
-  }, {
-    'country': 'Client 9',
-    'visits': 665
-  }, {
-    'country': 'Client 10',
-    'visits': 580
-  }, {
-    'country': 'Client 11',
-    'visits': 443
-  }
+      'country': '\n\nClient 1',
+      'visits': 1900
+    }, {
+      'country': 'Client 2',
+      'visits': 1700
+    }, {
+      'country': 'Client 3',
+      'visits': 1500
+    }, {
+      'country': 'Client 4',
+      'visits': 1300
+    }, {
+      'country': 'Client 5',
+      'visits': 1100
+    }, {
+      'country': 'Client 6',
+      'visits': 900
+    }, {
+      'country': 'Client 7',
+      'visits': 800
+    }, {
+      'country': 'Client 8',
+      'visits': 711
+    }, {
+      'country': 'Client 9',
+      'visits': 665
+    }, {
+      'country': 'Client 10',
+      'visits': 580
+    }, {
+      'country': 'Client 11',
+      'visits': 443
+    }
   ];
   categoryAxis = null;
   chart = null;
+  changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
   }
-
-  /*ngAfterViewInit() {
-    const chart = am4core.create('chartdiv7', am4charts.XYChart);
-
-// Add data (sectors as default)
-    chart.data = this.dataSectors;
-
-// Create axes
-    this.categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    this.categoryAxis.dataFields.category = 'category';
-    this.categoryAxis.renderer.grid.template.location = 0;
-//  this.categoryAxis.renderer.minGridDistance = 30;
-    this.categoryAxis.title.text = 'Sectors';
-
-    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = 'Commissions';
-
-// Create series
-    const series = chart.series.push(new am4charts.ColumnSeries());
-    series.id = 'c1';
-    series.dataFields.valueY = 'value';
-    series.dataFields.categoryX = 'category';
-    series.yAxis = valueAxis;
-    series.tooltipText = '{categoryX}';
-    series.tooltipPosition = 'pointer';
-    series.columns.template.fillOpacity = 0.7;
-
-    this.chart = chart;
-  }
-
-  openModal() {
-    const chart = am4core.create('chartdiv7Modal', am4charts.XYChart);
-
-// Add data (sectors as default)
-    chart.data = this.dataSectors;
-
-// Create axes
-    this.categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-    this.categoryAxis.dataFields.category = 'category';
-    this.categoryAxis.renderer.grid.template.location = 0;
-//  this.categoryAxis.renderer.minGridDistance = 30;
-    this.categoryAxis.title.text = 'Sectors';
-
-    const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-    valueAxis.title.text = 'Commissions';
-
-// Create series
-    const series = chart.series.push(new am4charts.ColumnSeries());
-    series.id = 'c1';
-    series.dataFields.valueY = 'value';
-    series.dataFields.categoryX = 'category';
-    series.yAxis = valueAxis;
-    series.tooltipText = '{categoryX}';
-    series.tooltipPosition = 'pointer';
-    series.columns.template.fillOpacity = 0.7;
-
-    this.chart = chart;
-  }*/
 
   ngOnInit() {
     ///// Char 4
@@ -401,7 +345,24 @@ export class CommisionsComponent implements OnInit, AfterViewInit {
     series.name = 'Visits';
     series.columns.template.tooltipText = '{categoryX}: [bold]{valueY}[/]';
     series.columns.template.fillOpacity = .8;
-
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    series.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
     let columnTemplate = series.columns.template;
     columnTemplate.strokeWidth = 2;
     columnTemplate.strokeOpacity = 1;

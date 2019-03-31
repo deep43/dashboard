@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-shares-exchange',
@@ -93,8 +94,9 @@ export class SharesExchangeComponent implements OnInit, AfterViewInit {
       'countryDetails': 'EY',
       'litres': 50
     }];
+  changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngOnInit() {
@@ -146,38 +148,6 @@ export class SharesExchangeComponent implements OnInit, AfterViewInit {
   }
 
   openModal() {
-    // Add data
-    /*let pieChartData = [
-      {
-        'country': 'TCK',
-        'litres': 501.9
-      }, {
-        'country': 'ZCN',
-        'litres': 301.9
-      }, {
-        'country': 'TRQ',
-        'litres': 201.1
-      }, {
-        'country': 'BTG',
-        'litres': 165.8
-      }, {
-        'country': 'NMX',
-        'litres': 139.9
-      }, {
-        'country': 'MFC',
-        'litres': 128.3
-      }, {
-        'country': 'UK',
-        'litres': 99
-      }, {
-        'country': 'END',
-        'litres': 60
-      }, {
-        'country': 'EN',
-        'litres': 50
-      }
-    ];*/
-
     let chart2 = am4core.create(this.ID1Modal, am4charts.PieChart);
     chart2.data = this.pieChartData;
 
@@ -192,7 +162,12 @@ export class SharesExchangeComponent implements OnInit, AfterViewInit {
     pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
     pieSeries.slices.template.tooltipText = '[font-size: 20]{countryDetails} - {litres}';
-
+    const that = this;
+    pieSeries.slices.template.events.on('hit', function (ev) {
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
+// This creat
 // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
     pieSeries.hiddenState.properties.endAngle = -90;
@@ -209,7 +184,10 @@ export class SharesExchangeComponent implements OnInit, AfterViewInit {
     pieSeries3.slices.template.strokeWidth = 2;
     pieSeries3.slices.template.strokeOpacity = 1;
     pieSeries3.slices.template.tooltipText = '[font-size: 20]{countryDetails} - {litres}';
-
+    pieSeries3.slices.template.events.on('hit', function (ev) {
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 // This creates initial animation
     pieSeries3.hiddenState.properties.opacity = 1;
     pieSeries3.hiddenState.properties.endAngle = -90;

@@ -40,14 +40,18 @@
       <span>
         <a href="#"><img src="assets/dashboard_images/EquityMarketsLogo.png" class="dashboard-logo"></a>
       </span>
-      <mat-slide-toggle
+      <!--<mat-slide-toggle
         class="toggle-menu"
         [color]="slideColor"
         (change)="toggle($event)">
-      </mat-slide-toggle>
-      <a href="javascript:" (click)="toggleMegaMenu()" class="toggle-mega-menu mega-menu-link">
+      </mat-slide-toggle>-->
+      <a href="javascript:" (click)="toggleMegaMenu()" class="toggle-mega-menu mega-menu-link prime-links">
         <span>Equity Apps</span>
         <i class="feather icon-chevron-down f-14 p-l-5"></i>
+      </a>
+      <a href="javascript:" (click)="toggleSearchMenu()" class="toggle-mega-menu mega-menu-link search-link">
+        <span></span>
+        <i class="feather icon-search f-14 p-l-5"></i>
       </a>
 
       <div class="right-side-menu">
@@ -60,10 +64,12 @@
         <mat-menu #menu="matMenu">
           <div mat-menu-item class="text-center">
             You have <span class="notification-number">{{notifications.length}}</span> new notifications.
-            <button class="clear-all btn-sm" *ngIf="notifications.length" (click)="clearAllNotifications()">Clear All</button>
+            <button class="clear-all btn-sm" *ngIf="notifications.length" (click)="clearAllNotifications()">Clear All
+            </button>
           </div>
           <div mat-menu-item *ngFor="let notification of notifications">
-            <div class="notification">{{notification.message}}
+            <div class="notification">
+              <div [innerHTML]="notification.message"></div>
               <i class="icofont icofont-ui-delete close-notification"
                  (click)="deleteNotification($event, notification)"></i>
             </div>
@@ -90,7 +96,8 @@
         </mat-menu>
       </div>
     </mat-toolbar>
-    <div class="mega-menu" [ngClass]="megaMenuOpened ? 'opened':''">
+    <div class="mega-menu" [ngClass]="megaMenuOpened ? 'opened':''" (clickOutside)="clickedOutMegaMenu()"
+         [exclude]="'.prime-links'">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 text-content">
@@ -100,16 +107,17 @@
           <div class="col-lg-6 icon-content" [ngClass]="appliedDarkTheme ? 'dark' : ''">
             <div class="container">
               <div class="row">
-                <div class="col-lg-4 prime-app-img">
+                <a class="col-lg-4 prime-app-img anchor" href="http://prime-reporting.crossleafdevelopment.com">
                   <img class="black" src="./assets/dashboard_images/favicon.ico">
                   <img class="light" src="./assets/dashboard_images/Prime_Logo_light.png">
                   <div class="app-name">Prime Reporting</div>
-                </div>
-                <div class="col-lg-4"><i class="icofont icofont-presentation-alt"></i>
+                </a>
+                <a class="col-lg-4 anchor" href="http://dashboards.crossleafdevelopment.com">
+                  <i class="icofont icofont-presentation-alt"></i>
                   <div class="app-name">Prime Dashboard</div>
-                </div>
+                </a>
                 <div class="col-lg-4 prime-app-img">
-                  <a href="http://cars.crossleafdevelopment.com/#/login" target="_blank">
+                  <a href="http://cars.crossleafdevelopment.com/#/login" target="_blank" class="anchor">
                     <img class="black" src="./assets/dashboard_images/CARS-Dark.png">
                     <img class="light" src="./assets/dashboard_images/CARS-Light.png">
                     <div class="app-name">CARS</div>
@@ -121,16 +129,38 @@
         </div>
       </div>
     </div>
+    <div class="container search-container" (clickOutside)="clickedOutSearch()"
+         [exclude]="'.search-link'"
+         [@openClose]="searchOpened ? 'open' : 'closed'"
+         (keydown.esc)="onEscKeyUp($event)">
+      <div class="row">
+        <div class="col-12 col-sm-12 col-md-3 sol-lg-3" *ngFor="let item of searchItems">
+          <form class="" action="" (submit)="goToPage(item.id)">
+            <div class="form-group input-container">
+              <input type="text" class="form-control" placeholder="{{item.title}}"
+                     (keyup)="onChangeSearchInput($event, item)">
+              <i class="icofont icofont-search search-icon" (click)="goToPage(item.id)"></i>
+            </div>
+          </form>
+          <ul class="submenu-list">
+            <li class="nav-item menu-link-list" *ngFor="let submenu of item.links"
+                [routerLink]=[submenu.id]>
+            <a><i class="{{submenu.icon}}"></i> {{submenu.title}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div class="dashboard-side-nav">
       <ul class="nav flex-column">
         <li class="nav-item menu-link-list" *ngFor="let item of menuItems" [ngClass]="{'active': item.active}">
-          <a href="{{item.id}}"
+          <div
              [ngClass]="{'link-self-expanded': item.clicked}" class="menu-link"
              (mouseenter)="mouseEnter(item)" (mouseleave)="mouseLeave(item)" (click)="onClickMenuItem($event, item)">
             <i class="{{item.icon}}"></i>
-            <span class="toggle-link toggle-link-span"
+            <a class="toggle-link toggle-link-span" href="{{item.id}}"
                   [ngClass]="{'toggle-link-expanded': item.clicked, 'toggle-link-closed': !item.clicked}"
-                  *ngIf="!item.searchable">{{item.title}}</span>
+                  *ngIf="item.link">{{item.title}}</a>
             <form class="toggle-link toggle-link-form"
                   [ngClass]="{'toggle-link-expanded': item.clicked, 'toggle-link-closed': !item.clicked}"
                   *ngIf="item.searchable" action="" (submit)="goToPage(item.id)">
@@ -158,12 +188,12 @@
                 </form>
               </a>
               <ul class="submenu-list">
-                <li class="nav-item menu-link-list" *ngFor="let submenu of item.links">
+                <li class="nav-item menu-link-list" *ngFor="let submenu of item.links" [routerLink]=[submenu.id]>
                   <a><i class="{{submenu.icon}}"></i> {{submenu.title}}</a>
                 </li>
               </ul>
             </div>
-          </a>
+          </div>
 
         </li>
       </ul>

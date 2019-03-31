@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, NgZone, OnDestroy} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-account-activity',
@@ -9,8 +10,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 })
 export class AccountActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
+  private changed = false;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -234,6 +236,8 @@ export class AccountActivityComponent implements OnInit, AfterViewInit, OnDestro
     valueAxis.renderer.inside = true;
     valueAxis.renderer.labels.template.disabled = true;
     valueAxis.min = 0;
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
 
 // Create series
     function createSeries(field, name) {
@@ -244,6 +248,23 @@ export class AccountActivityComponent implements OnInit, AfterViewInit, OnDestro
       series.dataFields.valueY = field;
       series.dataFields.categoryX = 'name';
       series.sequencedInterpolation = true;
+
+      series.columns.template.events.on('hit', function (ev) {
+        prevClickedColumn.strokeWidth = 0;
+        if (!ev.target.column['selected']) {
+          ev.target.column.strokeWidth = 4;
+          ev.target.column.stroke = am4core.color('#ffd740');
+          prevClickedColumn.selected = false;
+          prevClickedColumn = ev.target.column;
+          prevClickedColumn.selected = true;
+        }
+        else {
+          ev.target.column['selected'] = false;
+          prevClickedColumn = {selected: false};
+        }
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      }, this);
 
       // Make it stacked
       series.stacked = true;

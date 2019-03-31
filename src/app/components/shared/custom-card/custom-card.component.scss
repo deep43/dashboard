@@ -13,6 +13,12 @@
   display: flex;
   flex: 1 1 auto;
   justify-content: flex-end;
+
+  i{
+    padding-left: 10px;
+    cursor: pointer;
+    padding-top: 5px;
+  }
 }
 
 .modal-content {
@@ -69,4 +75,6 @@
 .client-link {
   color: #67b7dc;
 }
-
+.hidden{
+  display: none;
+}

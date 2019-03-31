@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, NgZone, OnDestroy} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-activity-notional',
@@ -9,8 +10,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 })
 export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
+  private changed = false;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -314,6 +316,24 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     series2Modal.strokeWidth = 0;
     series2Modal.clustered = false;
     series2Modal.toBack();
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    series2Modal.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 
     let series3Modal = chartModal.series.push(new am4charts.LineSeries());
     series3Modal.dataFields.valueY = 'market1';
@@ -324,7 +344,16 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     series3Modal.tensionX = 0.7;
     series3Modal.yAxis = valueAxis2Modal;
     series3Modal.tooltipText = '{name}\n[bold font-size: 20]{valueY}[/]';
-
+    series3Modal.segments.template.interactionsEnabled = true;
+    series3Modal.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     /*let bullet3Modal = series3Modal.bullets.push(new am4charts.CircleBullet());
     bullet3Modal.circle.radius = 3;
     bullet3Modal.circle.strokeWidth = 2;
@@ -354,7 +383,16 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     series4Modal.tooltipText = '{name}\n[bold font-size: 20]{valueY}[/]';
     // series4Modal.stroke = chartModal.colors.getIndex(0).lighten(0.5);
     series4Modal.strokeDasharray = '3,3';
-
+    series4Modal.segments.template.interactionsEnabled = true;
+    series4Modal.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     /*let bullet4Modal = series4Modal.bullets.push(new am4charts.CircleBullet());
     bullet4Modal.circle.radius = 3;
     bullet4Modal.circle.strokeWidth = 2;

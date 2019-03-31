@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-individual-metrics',
@@ -9,8 +10,9 @@ import * as am4core from '@amcharts/amcharts4/core';
 })
 export class IndividualMetricsComponent implements OnInit, AfterViewInit {
   chart: any;
+  changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -167,6 +169,7 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
     dateAxisModal.renderer.minGridDistance = 50;
     dateAxisModal.skipEmptyPeriods= true;
+    const that = this;
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {
@@ -180,6 +183,17 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
       series.name = name;
       series.tooltipText = '{name}: [bold]{valueY}[/]';
       series.tensionX = 0.8;
+
+      series.segments.template.interactionsEnabled = true;
+      series.segments.template.events.on(
+        "hit",
+        ev => {
+          // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+          that.changed = !that.changed;
+          that.refreshService.setRefreshedData(that.changed);
+        },
+        this
+      );
 
       let interfaceColors = new am4core.InterfaceColorSet();
 

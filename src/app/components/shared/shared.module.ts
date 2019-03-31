@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {AgGridModule} from 'ag-grid-angular';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {ClickOutsideModule} from 'ng-click-outside';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     ModalModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
     AgGridModule.withComponents([]),
+    ClickOutsideModule
   ],
   exports: [
     CustomCardComponent

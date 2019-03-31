@@ -5,11 +5,48 @@ import {AgGridNg2} from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import {BsModalService, BsModalRef, ModalDirective} from 'ngx-bootstrap/modal';
 import {FunctionDefinition} from '@angular/compiler-cli/src/ngtsc/host';
+import {RefreshService} from '../service/refresh.service';
+import {Subscription} from 'rxjs';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+// import ObjectContaining = jasmine.ObjectContaining;
 
 @Component({
   selector: 'app-card',
   templateUrl: './custom-card.component.html',
   styleUrls: ['./custom-card.component.scss'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        height: '100%',
+      })),
+      state('closed', style({
+        overflow: 'hidden',
+        height: '0',
+      })),
+      transition('open => closed', [
+        animate('0s')
+      ]),
+      transition('closed => open', [
+        animate('0s')
+      ]),
+    ]),
+    trigger('openCloseEffect', [
+      // ...
+      state('openEffect', style({
+        height: '100%',
+      })),
+      state('closedEffect', style({
+        height: 'auto',
+      })),
+      transition('open => closed', [
+        animate('0s')
+      ]),
+      transition('closed => open', [
+        animate('0s')
+      ]),
+    ])
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export class CustomCardComponent implements OnInit {
@@ -70,7 +107,7 @@ export class CustomCardComponent implements OnInit {
   rowData = [
 
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
@@ -95,7 +132,17 @@ export class CustomCardComponent implements OnInit {
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
@@ -111,565 +158,555 @@ export class CustomCardComponent implements OnInit {
     },
     {
       version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingname: 'Goldman Sachs', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
 
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
-      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
-      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
-    },
-    {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
 
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'PWC',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
     {
-      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Barrick Gold',
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'EY',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Apple',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'MSN',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'MSN',
+      code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
+      openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
+    },
+    {
+      version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'MSN',
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
@@ -685,13 +722,41 @@ export class CustomCardComponent implements OnInit {
   selected = {start: moment().subtract(29, 'days'), end: moment()};
 
   selectedRowsPerPage = 8;
+  subscription: Subscription;
+  minimise = false;
 
-  constructor(private modalService: BsModalService) {
+  constructor(private modalService: BsModalService, private refreshService: RefreshService) {
 
+  }
+
+  shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array.map(x => Object.assign({}, x));
   }
 
   openModal() {
     this.modal.show();
+    this.subscription = this.refreshService.getRefreshedData().subscribe(() => {
+      this.rowData = this.shuffle(this.rowData);
+    });
+  }
+
+  toggleMinimise(){
+    this.minimise = !this.minimise;
   }
 
   handler(type: string, $event: ModalDirective) {

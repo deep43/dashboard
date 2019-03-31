@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-activity-comparison',
@@ -103,11 +104,14 @@ export class ActivityComparisonComponent implements OnInit, AfterViewInit {
       'meetings': 100,
     }
   ]
+  changed = false;
 
-  constructor() { }
+  constructor(private refreshService: RefreshService) {
+  }
 
   ngOnInit() {
   }
+
   ngAfterViewInit() {
     // Add data
 
@@ -153,7 +157,18 @@ export class ActivityComparisonComponent implements OnInit, AfterViewInit {
     pieSeries.slices.template.strokeWidth = 2;
     pieSeries.slices.template.strokeOpacity = 1;
     pieSeries.slices.template.tooltipText = '[font-size: 20]{name} - {meetings}';
-
+    /*const that = this;
+    let prevClickedColumn = {strokeWidth: 0};
+    pieSeries.slices.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      ev.target.column.strokeWidth = 4;
+      ev.target.column.stroke = am4core.color('#ffd740');
+      prevClickedColumn.selected = false;
+      prevClickedColumn = ev.target.column;
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
+*/
 // This creates initial animation
     pieSeries.hiddenState.properties.opacity = 1;
     pieSeries.hiddenState.properties.endAngle = -90;

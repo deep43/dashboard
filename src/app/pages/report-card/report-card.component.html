@@ -23,9 +23,9 @@
       </app-three-col-table>
       <div class="row totals">
         <div class="col-12 col-sm-6 col-md-6">Total Meetings</div>
-        <div class="col-12 col-sm-2 col-md-2">28</div>
-        <div class="col-12 col-sm-2 col-md-2">12</div>
-        <div class="col-12 col-sm-2 col-md-2">68%</div>
+        <div class="col-12 col-sm-2 col-md-2">18</div>
+        <div class="col-12 col-sm-2 col-md-2">11</div>
+        <div class="col-12 col-sm-2 col-md-2">64%</div>
       </div>
       <app-four-col-table [title]="'Meeting Breakdown'"
                           [columns]="columns5"
@@ -34,19 +34,22 @@
       </app-four-col-table>
       <app-three-col-table [title]="'Corporate Access Analyst Marketing'"
                            [columns]="columns2"
-                           [rowData]="rowData1">
+                           [rowData]="rowData2">
 
       </app-three-col-table>
       <app-three-col-table [title]="'Corporate Marketing'"
                            [columns]="columns3"
-                           [rowData]="rowData1">
+                           [rowData]="rowData3"
+                           class="break-page">
 
       </app-three-col-table>
-      <app-three-col-table [title]="'Corporate and Special Events'"
-                           [columns]="columns4"
-                           [rowData]="rowData4">
+      <div >
+        <app-three-col-table [title]="'Corporate and Special Events'"
+                             [columns]="columns4"
+                             [rowData]="rowData4">
 
-      </app-three-col-table>
+        </app-three-col-table>
+      </div>
       <div class="row print-footer">
         <div class="col-12 col-sm-12 col-md-12 heading">CIBC Corporate Access Team</div>
         <div class="col-12 col-sm-12 col-md-12">Confidential</div>
@@ -56,7 +59,7 @@
 </div>
 <div class="row">
   <div class="col-12 col-sm-12 col-md-12 col-lg-12 print-btn-container">
-    <button class="btn btn-primary btn-lg print-page" (click)="printReport()" >Print
+    <button class="btn btn-primary btn-lg print-page" (click)="printReport()">Print
     </button>
     <button class="btn btn-danger btn-lg cancel">Cancel</button>
   </div>

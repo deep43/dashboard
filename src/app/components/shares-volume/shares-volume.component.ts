@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, NgZone, OnDestroy} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-shares-volume',
@@ -9,8 +10,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 })
 export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
+  private changed = false;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -90,7 +92,7 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       // dateAxis.renderer.grid.template.location = 0;
       // dateAxis.renderer.minGridDistance = 30;
-      dateAxis.skipEmptyPeriods= true;
+      dateAxis.skipEmptyPeriods = true;
 
       let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
       valueAxis1.title.text = 'Number Of Shares';
@@ -215,7 +217,7 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
     let chartModal = am4core.create('chartdivModal', am4charts.XYChart);
 
     // Add data
-    chartModal.data = [
+    const data = [
       {
         'date': '2019-01-02',
         'market1': 5415558,
@@ -277,13 +279,14 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
         'sales1': 7161254,
         'sales2': 159725103
       }
-      ];
+    ];
+    chartModal.data = data;
 
     // Create axes
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
     // dateAxis.renderer.grid.template.location = 0;
     // dateAxis.renderer.minGridDistance = 30;
-    dateAxisModal.skipEmptyPeriods= true;
+    dateAxisModal.skipEmptyPeriods = true;
 
     let valueAxis1Modal = chartModal.yAxes.push(new am4charts.ValueAxis());
     valueAxis1Modal.title.text = 'Number Of Shares';
@@ -305,6 +308,25 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
     series1Modal.clustered = false;
     series1Modal.columns.template.width = am4core.percent(40);
 
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    series1Modal.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
+
     /*let series2Modal = chartModal.series.push(new am4charts.ColumnSeries());
     series2Modal.dataFields.valueY = 'sales2';
     series2Modal.dataFields.dateX = 'date';
@@ -325,7 +347,16 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
     series3Modal.tensionX = 0.7;
     series3Modal.yAxis = valueAxis2Modal;
     series3Modal.tooltipText = '{name}\n[bold font-size: 20]{valueY}[/]';
-
+    series3Modal.segments.template.interactionsEnabled = true;
+    series3Modal.segments.template.events.on(
+      'hit',
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     /*let bullet3Modal = series3Modal.bullets.push(new am4charts.CircleBullet());
     bullet3Modal.circle.radius = 3;
     bullet3Modal.circle.strokeWidth = 2;
@@ -356,7 +387,16 @@ export class SharesVolumeComponent implements OnInit, AfterViewInit, OnDestroy {
     series4Modal.tooltipText = '{name}\n[bold font-size: 20]{valueY}[/]';
     // series4Modal.stroke = chartModal.colors.getIndex(0).lighten(0.5);
     series4Modal.strokeDasharray = '3,3';
-
+    series4Modal.segments.template.interactionsEnabled = true;
+    series4Modal.segments.template.events.on(
+      'hit',
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     /*let bullet4Modal = series4Modal.bullets.push(new am4charts.CircleBullet());
     bullet4Modal.circle.radius = 3;
     bullet4Modal.circle.strokeWidth = 2;

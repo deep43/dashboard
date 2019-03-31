@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, NgZone, OnDestroy} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-weekly-performance',
@@ -9,8 +10,9 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 })
 export class WeeklyPerformanceComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
+  changed = false;
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -325,6 +327,24 @@ export class WeeklyPerformanceComponent implements OnInit, AfterViewInit, OnDest
     series1.dataItems.template.locations.categoryX = 0.5;
     series1.stacked = true;
     series1.tooltip.pointerOrientation = 'vertical';
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    series1.columns.template.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 
     let bullet1 = series1.bullets.push(new am4charts.LabelBullet());
     bullet1.interactionsEnabled = false;
@@ -344,6 +364,16 @@ export class WeeklyPerformanceComponent implements OnInit, AfterViewInit, OnDest
     series2.stacked = true;
     series2.tooltip.pointerOrientation = 'vertical';
 
+    series2.columns.template.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 0;
+      ev.target.column.strokeWidth = 4;
+      ev.target.column.stroke = am4core.color('#ffd740');
+      prevClickedColumn.selected = false;
+      prevClickedColumn = ev.target.column;
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
+
     let bullet2 = series2.bullets.push(new am4charts.LabelBullet());
     bullet2.interactionsEnabled = false;
     bullet2.label.text = '{valueY.totalPercent.formatNumber("#.00")}%';
@@ -361,6 +391,16 @@ export class WeeklyPerformanceComponent implements OnInit, AfterViewInit, OnDest
     series3.dataItems.template.locations.categoryX = 0.5;
     series3.stacked = true;
     series3.tooltip.pointerOrientation = 'vertical';
+
+    series3.columns.template.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 0;
+      ev.target.column.strokeWidth = 4;
+      ev.target.column.stroke = am4core.color('#ffd740');
+      prevClickedColumn.selected = false;
+      prevClickedColumn = ev.target.column;
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 
     let bullet3 = series3.bullets.push(new am4charts.LabelBullet());
     bullet3.interactionsEnabled = false;

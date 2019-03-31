@@ -1,0 +1,27 @@
+
+@media print {
+  html * {
+    visibility: hidden;
+  }
+  #print-section-container, #print-section-container * {
+    visibility: visible;
+  }
+  #print-section-container {
+    overflow: visible;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+
+    .title{
+      padding: 5px 10px;
+    }
+  }
+  .break-page{
+    page-break-after: always !important;
+  }
+  @page {
+    size:297mm 480mm;
+  }
+}

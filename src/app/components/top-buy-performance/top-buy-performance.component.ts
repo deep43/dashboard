@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-top-buy-performance',
@@ -8,11 +9,14 @@ import * as am4charts from '@amcharts/amcharts4/charts';
   styleUrls: ['./top-buy-performance.component.scss']
 })
 export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
+  changed = false;
 
-  constructor() { }
+  constructor(private refreshService: RefreshService) {
+  }
 
   ngAfterViewInit() {
   }
+
   ngOnInit() {
     ///// Char 4
     am4core.options.autoSetClassName = true;
@@ -67,13 +71,14 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
       }, {
         'date': '2012-03-15',
         'price': 147
-      }];
+      }
+    ];
 
 // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
-    dateAxis.skipEmptyPeriods= true;
+    dateAxis.skipEmptyPeriods = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
@@ -177,7 +182,7 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 50;
-    dateAxis.skipEmptyPeriods= true;
+    dateAxis.skipEmptyPeriods = true;
 
     let valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.logarithmic = true;
@@ -189,7 +194,17 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
     series.dataFields.dateX = 'date';
     series.tensionX = 0.8;
     series.strokeWidth = 3;
-
+    const that = this;
+    series.segments.template.interactionsEnabled = true;
+    series.segments.template.events.on(
+      "hit",
+      ev => {
+        // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+        that.changed = !that.changed;
+        that.refreshService.setRefreshedData(that.changed);
+      },
+      this
+    );
     let bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.circle.fill = am4core.color('#fff');
     bullet.circle.strokeWidth = 3;

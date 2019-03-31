@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-activity-volume',
@@ -8,8 +9,9 @@ import * as am4core from '@amcharts/amcharts4/core';
   styleUrls: ['./activity-volume.component.scss']
 })
 export class ActivityVolumeComponent implements OnInit, AfterViewInit {
+  private changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -151,6 +153,7 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
 
 // Add data
     chartModal.data = generateChartData();
+    const that = this;
 
 // Create axes
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
@@ -169,6 +172,16 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
       series.name = name;
       series.tooltipText = '{name}: [bold]{valueY}[/]';
       series.tensionX = 0.8;
+      series.segments.template.interactionsEnabled = true;
+      series.segments.template.events.on(
+        "hit",
+        ev => {
+          // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
+          that.changed = !that.changed;
+          that.refreshService.setRefreshedData(that.changed);
+        },
+        this
+      );
 
       let interfaceColors = new am4core.InterfaceColorSet();
 

@@ -1,9 +1,12 @@
 import {Component} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {filter} from 'rxjs/operators';
+// import { ListKeyManager } from '@angular/cdk/a11y';
+import {UP_ARROW, DOWN_ARROW, ENTER} from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-main-nav',
@@ -13,16 +16,18 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
     trigger('openClose', [
       // ...
       state('open', style({
-        width: '225px'
+        height: '270px',
+        paddingTop: '20px'
       })),
       state('closed', style({
-        width: '40px'
+        height: '0px',
+        paddingTop: '0'
       })),
       transition('open => closed', [
-        animate('0.3s')
+        animate('0.5s')
       ]),
       transition('closed => open', [
-        animate('0.3s')
+        animate('0.5s')
       ]),
     ]),
     trigger('openCloseLink', [
@@ -39,10 +44,26 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         animate('0.3s')
       ]),
     ]),
+    trigger('openCloseMegaMenu', [
+      state('open', style({
+        visibility: 'visible'
+      })),
+      state('close', style({
+        visibility: 'none'
+      })),
+      transition('open => close', [
+        animate('0.3s')
+      ]),
+      transition('close => open', [
+        animate('0.3s')
+      ]),
+    ]),
   ]
 })
 export class MainNavComponent {
+  // keyboardEventsManager: ListKeyManager;
   megaMenuOpened = false;
+  searchOpened = false;
   showFullNavigation = false;
   showNavigationMenu = false;
   showLink = false;
@@ -51,39 +72,88 @@ export class MainNavComponent {
   menuItems = [
     {id: '#', icon: 'feather icon-bar-chart', clicked: true, link: true, title: 'General Dashboard'},
     {id: '/#/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
-    {id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
+    {
+      id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
       links: [
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'EY'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'PWC'},
-        {id: '#', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]},
-    {id: '#', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'PWC'},
+        {id: '/client', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
+    {
+      id: '#', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
       links: [
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'MSN'},
-        {id: '#', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]},
-    {id: '#', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'MSN'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
+    {
+      id: '#', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
       links: [
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Trading'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Banking'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Health care'},
-        {id: '#', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Trading'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Banking'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Health care'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
     {
       id: '#', icon: 'feather icon-server', clicked: true, submenuWithSearch: true, title: 'Search Preset',
       links: [
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
-        {id: '#', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
-        {id: '#', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
       ]
     }];
   menuItemsCopy = this.menuItems.map(x => Object.assign({}, x));
+
+  searchItems = [
+    {
+      id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
+      links: [
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
+        {id: '/client', icon: '', clicked: true, searchable: false, title: 'PWC'},
+        {id: '/client', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
+    {
+      id: '', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
+      links: [
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'MSN'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
+    {
+      id: '', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
+      links: [
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Trading'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Banking'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Health care'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    },
+    {
+      id: '', icon: 'feather icon-server', clicked: true, submenuWithSearch: true, title: 'Search Preset',
+      links: [
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        {id: '/', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+      ]
+    }];
+  searchItemsCopy = this.searchItems.map(x => Object.assign({}, x));
+
   notifications = [
-    {message: 'Client ‘1832’ just executed a block trade on symbol: ‘XYZ’', id: 1},
+    {
+      message: '<a class="notification-link" [routerLink]="/client" href="/#/client">Client ‘1832’</a> just executed a block trade on symbol: ‘XYZ’',
+      id: 1
+    },
     {message: 'John Smith from ABC Investments has had recent meetings about ‘ABC’', id: 2},
     {message: 'Bob Jones from Mackenzie might be interested in taking a position in ‘GHY’', id: 3},
   ];
@@ -94,6 +164,33 @@ export class MainNavComponent {
 
   toggleMegaMenu() {
     this.megaMenuOpened = !this.megaMenuOpened;
+  }
+
+  clickedOutSearch() {
+    if (this.searchOpened) {
+      this.searchOpened = false;
+    }
+  }
+
+  clickedOutMegaMenu() {
+    if (this.megaMenuOpened) {
+      this.megaMenuOpened = false;
+    }
+  }
+
+  onEscKeyUp(event){
+    if(event.key === "Escape"){
+      if (this.searchOpened) {
+        this.searchOpened = false;
+      }
+
+      if (this.megaMenuOpened) {
+        this.megaMenuOpened = false;
+      }
+    }
+  }
+  toggleSearchMenu() {
+    this.searchOpened = !this.searchOpened;
   }
 
   toggleMenuItem(menuItem) {
@@ -114,8 +211,34 @@ export class MainNavComponent {
     this.showFullNavigation = event.checked;
   }
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              private router: Router, private route: ActivatedRoute) {
+    this.router.events.pipe(
+      filter((event: any) => event instanceof NavigationEnd)
+    ).subscribe(x => {
+      this.searchOpened = false;
+    })
   }
+
+  /**
+   * @author Ahsan Ayaz
+   * @desc Triggered when a key is pressed while the input is focused
+   */
+
+  /*handleKeyUp(event: KeyboardEvent) {
+    event.stopImmediatePropagation();
+    if (this.keyboardEventsManager) {
+      if (event.keyCode === DOWN_ARROW || event.keyCode === UP_ARROW) {
+        // passing the event to key manager so we get a change fired
+        this.keyboardEventsManager.onKeydown(event);
+        return false;
+      } else if (event.keyCode === ENTER) {
+        // when we hit enter, the keyboardManager should call the selectItem method of the `ListItemComponent`
+        this.keyboardEventsManager.activeItem.selectItem();
+        return false;
+      }
+    }
+  }*/
 
   goToPage(link) {
     this.router.navigateByUrl(`/${link}`);
@@ -172,12 +295,21 @@ export class MainNavComponent {
     item.active = !item.active;
   }
 
-  onChangeSubmenuWithSearch($event, item){
-    let itemCopy = this.menuItemsCopy.filter(itemCopy=>{
+  onChangeSubmenuWithSearch($event, item) {
+    let itemCopy = this.menuItemsCopy.filter(itemCopy => {
       return itemCopy.title === item.title;
     })[0];
-    item.links = itemCopy.links.filter(link =>{
-      return link.title.toLowerCase().indexOf($event.target.value) >= 0;
+    item.links = itemCopy.links.filter(link => {
+      return link.title.toLowerCase().indexOf($event.target.value.toLowerCase()) >= 0;
+    });
+  }
+
+  onChangeSearchInput($event, item) {
+    let itemCopy = this.searchItemsCopy.filter(itemCopy => {
+      return itemCopy.title === item.title;
+    })[0];
+    item.links = itemCopy.links.filter(link => {
+      return link.title.toLowerCase().indexOf($event.target.value.toLowerCase()) >= 0;
     });
   }
 }

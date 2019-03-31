@@ -115,7 +115,9 @@
   position: relative;
   text-decoration: none;
   padding-top: 5px;
-
+  &.search-link{
+    margin-left: 0;
+  }
   &:hover, &:focus {
     text-decoration: none;
     color: white;
@@ -129,7 +131,7 @@
 .mega-menu {
   z-index: 2;
   position: absolute;
-  left: 10%;
+  left: 8.5%;
   top: 40px;
   max-width: 650px;
   visibility: hidden;
@@ -140,6 +142,12 @@
 
   &.opened {
     visibility: visible;
+  }
+
+  .anchor{
+    color: #231e1e;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .prime-app-img {
@@ -294,6 +302,11 @@
     top: 18px;
     color: #ffd507;
   }
+
+  .notification-link{
+    color: #ffd507;
+    cursor: pointer;
+  }
 }
 
 .user-menus {
@@ -351,18 +364,20 @@
   }
   .toggle-link-span {
     padding-left: 21px !important;
+    text-decoration: none;
   }
   .toggle-link-form {
     padding-top: 6px !important;
     padding-right: 10px;
 
-    .form-group{
+    .form-group {
       position: relative;
     }
-    .search-icon{
+    .search-icon {
       position: absolute;
       right: 10px;
       top: 8px;
+      cursor: pointer;
     }
   }
   .toggle-link {
@@ -398,7 +413,7 @@
         padding: 5px;
       }*/
 
-      .toggle-link{
+      .toggle-link {
         padding-left: 0;
         width: 190px;
       }
@@ -410,8 +425,9 @@
       background: #424242;
       display: block;
       width: 190px;
-      .menu-link-list{
+      .menu-link-list {
         padding-left: 20px;
+        cursor: pointer;
       }
     }
     /*&:hover {
@@ -433,11 +449,11 @@
     box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.2);
   }
 
-  .submenu-list{
+  .submenu-list {
     .menu-link-list {
-       background: none;
-       box-shadow: none;
-      &:hover{
+      background: none;
+      box-shadow: none;
+      &:hover {
         background: #373737;
       }
     }
@@ -455,7 +471,7 @@
   }
 }
 
-.clear-all{
+.clear-all {
   color: #ffd507;
   background: none;
   border: 2px solid #ffd507;
@@ -468,4 +484,57 @@
   align-items: center;
   float: right;
   margin-top: 2%;
+}
+
+.search-container {
+  position: absolute;
+  z-index: 3;
+  background: #4f4f4f;
+  margin-top: 40px;
+  padding-top: 40px;
+  left: 13.5%;
+  overflow: hidden;
+  box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.2);
+
+  .input-container {
+    position: relative;
+    margin-bottom: 0;
+
+    input {
+      border-radius: 20px;
+      height: 40px;
+      background: #424242;
+      color: white;
+      padding: 0 10px;
+      &::placeholder {
+        color: white;
+        font-size: 14px;
+      }
+    }
+    .search-icon {
+      position: absolute;
+      right: 10px;
+      top: 12px;
+      cursor: pointer;
+    }
+  }
+  .submenu-list {
+    list-style: none;
+    display: block;
+    padding: 0 3px;
+
+    .menu-link-list{
+      padding: 10px;
+      border-bottom: 1px solid #5b5858;
+      cursor: pointer;
+      &:last-child{
+        border-bottom: none;
+      }
+
+      &:hover{
+        background: #424242;
+        box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
 }

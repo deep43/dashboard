@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
+import {RefreshService} from '../shared/service/refresh.service';
 
 @Component({
   selector: 'app-activity-comission',
@@ -9,8 +10,9 @@ import * as am4core from '@amcharts/amcharts4/core';
 })
 export class ActivityComissionComponent implements OnInit, AfterViewInit {
   chart: any;
+  private changed = false;
 
-  constructor() {
+  constructor(private refreshService: RefreshService) {
   }
 
   ngAfterViewInit() {
@@ -86,7 +88,7 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     // dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 10;
     dateAxis.title.text = 'Activities';
-    dateAxis.skipEmptyPeriods= true;
+    // dateAxis.skipEmptyPeriods= true;
 
     let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis1.title.text = 'Client Commissions';
@@ -228,7 +230,7 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     // dateAxis.renderer.grid.template.location = 0;
     dateAxis.renderer.minGridDistance = 10;
     dateAxis.title.text = 'Activities';
-    dateAxis.skipEmptyPeriods= true;
+    // dateAxis.skipEmptyPeriods= true;
 
     let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis1.title.text = 'Client Commissions';
@@ -249,6 +251,27 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     series1.clustered = false;
     series1.columns.template.width = am4core.percent(40);
 
+    const that = this;
+    let prevClickedColumn: any = {strokeWidth: 0};
+    series1.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+        ev.target.column['selected'] = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
+
     let series2 = chart.series.push(new am4charts.ColumnSeries());
     series2.dataFields.valueY = 'sales2';
     series2.dataFields.dateX = 'date';
@@ -259,6 +282,23 @@ export class ActivityComissionComponent implements OnInit, AfterViewInit {
     series2.strokeWidth = 0;
     series2.clustered = false;
     series2.toBack();
+    series2.columns.template.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 0;
+      if (!ev.target.column['selected']) {
+        ev.target.column.strokeWidth = 4;
+        ev.target.column.stroke = am4core.color('#ffd740');
+        prevClickedColumn.selected = false;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.column;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.column['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    }, this);
 
     /*let series3 = chart.series.push(new am4charts.LineSeries());
     series3.dataFields.valueY = 'market1';
