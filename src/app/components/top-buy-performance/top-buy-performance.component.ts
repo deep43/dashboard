@@ -205,10 +205,26 @@ export class TopBuyPerformanceComponent implements OnInit, AfterViewInit {
       },
       this
     );
+    let prevClickedColumn:any = {};
     let bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.circle.fill = am4core.color('#fff');
     bullet.circle.strokeWidth = 3;
+    bullet.events.on('hit', function (ev) {
+      prevClickedColumn.strokeWidth = 3;
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
 
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
 // Add cursor
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.fullWidthLineX = true;

@@ -197,7 +197,8 @@ export class ClientPerformanceComponent implements OnInit, AfterViewInit {
       }, {
         'year': '2005',
         'value': 0.47
-      }];
+      }
+      ];
 
 // Create axes
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -420,7 +421,8 @@ export class ClientPerformanceComponent implements OnInit, AfterViewInit {
       }, {
         'year': '2005',
         'value': 0.47
-      }];
+      }
+    ];
 
 // Create axes
     let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
@@ -448,7 +450,7 @@ export class ClientPerformanceComponent implements OnInit, AfterViewInit {
     const that = this;
     series.segments.template.interactionsEnabled = true;
     series.segments.template.events.on(
-      "hit",
+      'hit',
       ev => {
         // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
         that.changed = !that.changed;

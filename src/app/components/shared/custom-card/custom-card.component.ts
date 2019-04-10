@@ -65,46 +65,85 @@ export class CustomCardComponent implements OnInit {
   defaultColDef = {
     sortable: true,
     filter: true,
-    resizable: true
+    resizable: true,
+    animateRows: true
   };
   gridApi;
   gridColumnApi;
+
   columnDefs = [
     {
-      headerName: 'Updated By', field: 'updatedBy', filter: true, suppressMovable: true
+      headerName: 'Trade Date', width: 220, field: 'tradeDate', filter: true, suppressMovable: true
     }, {
-      headerName: 'Updated Date', field: 'updatedDate', filter: true, suppressMovable: true
+      headerName: 'Trade Reference', width: 220, field: 'tradeRef', filter: true, suppressMovable: true
     },
     {
-      headerName: 'Name', field: 'name', filter: true, suppressMovable: true,
+      headerName: 'Client', width: 220, field: 'client', filter: true, suppressMovable: true,
       cellRenderer: (params) => {
         return '<a href="#/client"><span class="client-link">'
           + params.getValue() + '</span></a>';
       }
     },
     {
-      headerName: 'Code', field: 'code', filter: true, resizable: true, suppressMovable: true
+      headerName: 'Symbol', width: 220, field: 'symbol', filter: true, suppressMovable: true,
+      cellRenderer: (params) => {
+        return '<a href="#/client"><span class="client-link">'
+          + params.getValue() + '</span></a>';
+      }
     },
     {
-      headerName: 'Account Type', field: 'accountType', filter: true, resizable: true, suppressMovable: true
+      headerName: 'BuySell', width: 220, field: 'buySell', filter: true, resizable: true, suppressMovable: true
     },
     {
-      headerName: 'Reporting Name', field: 'reportingName', filter: true, resizable: true, suppressMovable: true
+      headerName: 'Shares', width: 220, field: 'shares', filter: true, resizable: true, suppressMovable: true
     },
     {
-      headerName: 'Base Currency', field: 'baseCurrency', filter: true, resizable: true, suppressMovable: true
+      headerName: 'Price', width: 220, field: 'price', filter: true, resizable: true, suppressMovable: true
     },
     {
-      headerName: 'CDR ID', field: 'cdrID', filter: true, resizable: true, suppressMovable: true
+      headerName: 'Notional', width: 220, field: 'notional', filter: true, resizable: true, suppressMovable: true
     },
     {
-      headerName: 'LEI ID', field: 'leiIDy', filter: true, resizable: true, suppressMovable: true
-    },
-    {
-      headerName: 'Active Flag', field: 'activeFlag', filter: true, resizable: true, suppressMovable: true
-    },
+      headerName: 'Commission', width: 220, field: 'commission', filter: true, resizable: true, suppressMovable: true
+    }
   ];
+
   rowData = [
+    {tradeDate: '01/01/2019', tradeRef: 'ADP34232', client: 'EY', symbol: 'EY', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/01/2019', tradeRef: 'ADP34232', client: 'EY', symbol: 'EY', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/01/2019', tradeRef: 'ADP34232', client: 'EY', symbol: 'EY', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/01/2019', tradeRef: 'ADP34232', client: 'Goldman Sachs', symbol: 'Goldman Sachs', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'CDP34232', client: 'Goldman Sachs', symbol: 'Goldman Sachs', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'CDP34732', client: 'Goldman Sachs', symbol: 'Goldman Sachs', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'CDP33732', client: 'Goldman Sachs', symbol: 'Goldman Sachs', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'CDP33732', client: 'Goldman Sachs', symbol: 'Goldman Sachs', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'CDP33732', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/02/2019', tradeRef: 'DDP33732', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'DDP44732', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'DDP44732', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'DDP44232', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'DDP44232', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'DDP44232', client: 'PWC', symbol: 'PWC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/03/2019', tradeRef: 'EDP44232', client: 'BSE', symbol: 'BSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'EDP44232', client: 'BSE', symbol: 'BSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'EDP44232', client: 'BSE', symbol: 'BSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'EDP44232', client: 'BSE', symbol: 'BSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'EDP55232', client: 'BSE', symbol: 'BSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'EDP55232', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/04/2019', tradeRef: 'RDP55232', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/05/2019', tradeRef: 'RDP52132', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/05/2019', tradeRef: 'RDP52132', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/05/2019', tradeRef: 'RDP32132', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/05/2019', tradeRef: 'RDP32132', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/05/2019', tradeRef: 'RDP32132', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP32144', client: 'NSE', symbol: 'NSE', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP32144', client: 'CMC', symbol: 'CMC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP33244', client: 'CMC', symbol: 'CMC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP33244', client: 'CMC', symbol: 'CMC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP33244', client: 'CMC', symbol: 'CMC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+    {tradeDate: '01/06/2019', tradeRef: 'WDP33244', client: 'CMC', symbol: 'CMC', buySell:'B',shares:'50,000',price:'$2.00',notional:'$200,000',commission:' $2,500' },
+  ];
+  /*rowData = [
 
     {
       version: '1.1', updatedBy: 'CDR', updatedDate: '05-Oct-18', name: 'Goldman Sachs',
@@ -710,7 +749,7 @@ export class CustomCardComponent implements OnInit {
       code: 'GLDMNSCHS', accountType: 'Counterparty', reportingName: 'Barrick Gold', baseCurrency: 'USD',
       openDate: '1-OCT-18', closeDate: '', cdrID: 'CDR001', leiIDy: 'LEI001', activeFlag: 'Y'
     },
-  ];
+  ];*/
   ranges: any = {
     'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

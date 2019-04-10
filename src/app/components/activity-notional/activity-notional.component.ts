@@ -91,7 +91,7 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
       // Create axes
       let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
       // dateAxis.renderer.grid.template.location = 0;
-      // dateAxis.renderer.minGridDistance = 30;
+      dateAxis.renderer.minGridDistance = 30;
       dateAxis.skipEmptyPeriods= true;
 
       let valueAxis1 = chart.yAxes.push(new am4charts.ValueAxis());
@@ -319,7 +319,12 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     const that = this;
     let prevClickedColumn: any = {strokeWidth: 0};
     series2Modal.columns.template.events.on('hit', function (ev) {
-      prevClickedColumn.strokeWidth = 0;
+      if (prevClickedColumn.className === 'RoundedRectangle') {
+        prevClickedColumn.strokeWidth = 0;
+      }
+      else {
+        prevClickedColumn.strokeWidth = 2;
+      }
       if (!ev.target.column['selected']) {
         ev.target.column.strokeWidth = 4;
         ev.target.column.stroke = am4core.color('#ffd740');
@@ -371,7 +376,27 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     triangle.direction = 'top';
     triangle.width = 8;
     triangle.height = 8;
+    triangle.events.on('hit', function (ev) {
+      if (prevClickedColumn.className === 'RoundedRectangle') {
+        prevClickedColumn.strokeWidth = 0;
+      }
+      else {
+        prevClickedColumn.strokeWidth = 2;
+      }
+      if (!ev.target['selected']) {
+        ev.target.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
 
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
     let series4Modal = chartModal.series.push(new am4charts.LineSeries());
     series4Modal.dataFields.valueY = 'market2';
     series4Modal.dataFields.dateX = 'date';
@@ -411,7 +436,27 @@ export class ActivityNotionalComponent implements OnInit, AfterViewInit, OnDestr
     triangle2.direction = 'bottom';
     triangle2.width = 8;
     triangle2.height = 8;
+    triangle2.events.on('hit', function (ev) {
+      if (prevClickedColumn.className === 'RoundedRectangle') {
+        prevClickedColumn.strokeWidth = 0;
+      }
+      else {
+        prevClickedColumn.strokeWidth = 2;
+      }
+      if (!ev.target['selected']) {
+        ev.target.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
 
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
     // Add cursor
     chartModal.cursor = new am4charts.XYCursor();
 

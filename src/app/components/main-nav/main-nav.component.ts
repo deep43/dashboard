@@ -1,12 +1,50 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {filter} from 'rxjs/operators';
 // import { ListKeyManager } from '@angular/cdk/a11y';
 import {UP_ARROW, DOWN_ARROW, ENTER} from '@angular/cdk/keycodes';
+import {Observable, Subject, merge} from 'rxjs';
+import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
+import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
+
+const clients = [
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'PWC'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Forbes'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Chattered Bank'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Eastern & co.'},
+];
+const symbols = [
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'BSE'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'TTS'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'CYC'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'NSE'},
+];
+const sectors = [
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Trading'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Banking'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Health Care'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Nutrition'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Food'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industries'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Servicing'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Manufacturing'},
+];
+const presets = [
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Forbes'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Chattered Bank'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Eastern & co.'},
+];
 
 @Component({
   selector: 'app-main-nav',
@@ -16,18 +54,18 @@ import {UP_ARROW, DOWN_ARROW, ENTER} from '@angular/cdk/keycodes';
     trigger('openClose', [
       // ...
       state('open', style({
-        height: '270px',
-        paddingTop: '20px'
+        display: 'block',
+        overflow: '-webkit-paged-x',
       })),
       state('closed', style({
-        height: '0px',
-        paddingTop: '0'
+        display: 'none',
+        overflow: 'hidden',
       })),
       transition('open => closed', [
-        animate('0.5s')
+        animate('0.3s')
       ]),
       transition('closed => open', [
-        animate('0.5s')
+        animate('0.3s')
       ]),
     ]),
     trigger('openCloseLink', [
@@ -70,10 +108,10 @@ export class MainNavComponent {
   slideColor = 'blue';
 
   menuItems = [
-    {id: '#', icon: 'feather icon-bar-chart', clicked: true, link: true, title: 'General Dashboard'},
-    {id: '/#/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
+    {id: '/', icon: 'feather icon-bar-chart', clicked: true, link: true, title: 'General Dashboard'},
+    {id: '/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
     {
-      id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
+      id: '/client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
       links: [
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
@@ -82,70 +120,115 @@ export class MainNavComponent {
       ]
     },
     {
-      id: '#', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
+      id: '/symbol', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'MSN'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+        {id: '/symbol', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
+        {id: '/symbol', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
+        {id: '/symbol', icon: '', clicked: true, searchable: false, title: 'MSN'},
+        {id: '/symbol', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
       ]
     },
     {
-      id: '#', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
+      id: '/sector', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Trading'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Banking'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Health care'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+        {id: '/sector', icon: '', clicked: true, searchable: false, title: 'Trading'},
+        {id: '/sector', icon: '', clicked: true, searchable: false, title: 'Banking'},
+        {id: '/sector', icon: '', clicked: true, searchable: false, title: 'Health care'},
+        {id: '/sector', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
       ]
     },
     {
-      id: '#', icon: 'feather icon-server', clicked: true, submenuWithSearch: true, title: 'Search Preset',
+      id: '/preset', icon: 'feather icon-server', clicked: true, submenuWithSearch: true, title: 'Search Preset',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
+        {id: '/preset', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
+        {id: '/preset', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        {id: '/preset', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
+        {id: '/preset', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
       ]
     }];
   menuItemsCopy = this.menuItems.map(x => Object.assign({}, x));
 
+  @ViewChild('instance') instance: NgbTypeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
+
+  searchClient = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => clients.filter(v => {
+        return term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1
+      }).slice(0, 10))
+    );
+
+  formatter = (x: {title: string}) => x.title;
+
+  searchSymbol = ((text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => symbols.filter(
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    ));
+  searchSector = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => sectors.filter(
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
+  searchPreset = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => presets.filter(
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    );
+
   searchItems = [
     {
       id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
+      model: 'ssssssss',
       links: [
-        {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
+        /*{id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'PWC'},
-        {id: '/client', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]
+        {id: '/client', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}*/
+      ],
+      searchFn: this.searchClient
     },
     {
       id: '', icon: 'feather icon-trending-up', clicked: true, submenuWithSearch: true, title: 'Search Symbol',
+      model: '',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
+        /*{id: '/', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'MSN'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}*/
+      ],
+      searchFn: this.searchSymbol
     },
     {
       id: '', icon: 'feather icon-box', clicked: true, submenuWithSearch: true, title: 'Search Sector',
+      model: '',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Trading'},
+        /*{id: '/', icon: '', clicked: true, searchable: false, title: 'Trading'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'Banking'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'Health care'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}*/
+      ],
+      searchFn: this.searchSector
     },
     {
       id: '', icon: 'feather icon-server', clicked: true, submenuWithSearch: true, title: 'Search Preset',
+      model: '',
       links: [
-        {id: '/', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
+        /*{id: '/', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
         {id: '/', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
-        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
-      ]
+        {id: '/', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}*/
+      ],
+      searchFn: this.searchPreset
     }];
   searchItemsCopy = this.searchItems.map(x => Object.assign({}, x));
 
@@ -161,6 +244,11 @@ export class MainNavComponent {
     .pipe(
       map(result => result.matches)
     );
+  public model: any;
+
+  ngOnInit() {
+    //this.searchClient(new Subject<string>());
+  }
 
   toggleMegaMenu() {
     this.megaMenuOpened = !this.megaMenuOpened;
@@ -169,7 +257,15 @@ export class MainNavComponent {
   clickedOutSearch() {
     if (this.searchOpened) {
       this.searchOpened = false;
+      this.clearSearchBoxes();
     }
+  }
+
+  clearSearchBoxes(){
+    this.searchItems = this.searchItems.map((item)=>{
+      item.model = '';
+      return item;
+    });
   }
 
   clickedOutMegaMenu() {
@@ -178,8 +274,8 @@ export class MainNavComponent {
     }
   }
 
-  onEscKeyUp(event){
-    if(event.key === "Escape"){
+  onEscKeyUp(event) {
+    if (event.key === 'Escape') {
       if (this.searchOpened) {
         this.searchOpened = false;
       }
@@ -189,8 +285,10 @@ export class MainNavComponent {
       }
     }
   }
+
   toggleSearchMenu() {
     this.searchOpened = !this.searchOpened;
+    this.clearSearchBoxes();
   }
 
   toggleMenuItem(menuItem) {
@@ -217,6 +315,7 @@ export class MainNavComponent {
       filter((event: any) => event instanceof NavigationEnd)
     ).subscribe(x => {
       this.searchOpened = false;
+      console.log(this.router.url);
     })
   }
 
@@ -311,5 +410,9 @@ export class MainNavComponent {
     item.links = itemCopy.links.filter(link => {
       return link.title.toLowerCase().indexOf($event.target.value.toLowerCase()) >= 0;
     });
+  }
+
+  itemSelected(event){
+    this.router.navigateByUrl(event.item.id);
   }
 }

@@ -34,7 +34,7 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
 // Create axes
     let dateAxis = chart.xAxes.push(new am4charts.DateAxis());
     dateAxis.renderer.minGridDistance = 50;
-    dateAxis.skipEmptyPeriods= true;
+    dateAxis.skipEmptyPeriods = true;
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {
@@ -158,7 +158,8 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
 // Create axes
     let dateAxisModal = chartModal.xAxes.push(new am4charts.DateAxis());
     dateAxisModal.renderer.minGridDistance = 50;
-    dateAxisModal.skipEmptyPeriods= true;
+    dateAxisModal.skipEmptyPeriods = true;
+    let prevClickedColumn: any = {};
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {
@@ -174,7 +175,7 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
       series.tensionX = 0.8;
       series.segments.template.interactionsEnabled = true;
       series.segments.template.events.on(
-        "hit",
+        'hit',
         ev => {
           // var item = ev.target.dataItem.component.tooltipDataItem.dataContext;
           that.changed = !that.changed;
@@ -184,7 +185,6 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
       );
 
       let interfaceColors = new am4core.InterfaceColorSet();
-
       switch (bullet) {
         case 'triangle':
           let bullet = series.bullets.push(new am4charts.Bullet());
@@ -199,6 +199,22 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
           triangle.direction = 'top';
           triangle.width = 12;
           triangle.height = 12;
+          triangle.events.on('hit', function (ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target['selected']) {
+              ev.target.strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target;
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });
           break;
         case 'rectangle':
           let bullet1 = series.bullets.push(new am4charts.Bullet());
@@ -212,11 +228,42 @@ export class ActivityVolumeComponent implements OnInit, AfterViewInit {
           rectangle.strokeWidth = 2;
           rectangle.width = 10;
           rectangle.height = 10;
-          break;
+          rectangle.events.on('hit', function (ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target['selected']) {
+              ev.target.strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target;
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });break;
         default:
           let bullet2 = series.bullets.push(new am4charts.CircleBullet());
           bullet2.circle.stroke = interfaceColors.getFor('background');
           bullet2.circle.strokeWidth = 2;
+          bullet2.events.on('hit', function (ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target['circle']['selected']) {
+              ev.target['circle'].strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target['circle'];
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target['circle']['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });
           break;
       }
 

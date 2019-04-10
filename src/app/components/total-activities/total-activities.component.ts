@@ -521,7 +521,23 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     let bullet = series.bullets.push(new am4charts.CircleBullet());
     bullet.circle.fill = am4core.color('#fff');
     bullet.circle.strokeWidth = 3;
+    let prevClickedColumn: any = {strokeWidth: 3};
+    bullet.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 3;
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
 
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
 // Add cursor
     chart.cursor = new am4charts.XYCursor();
     chart.cursor.fullWidthLineX = true;
@@ -637,6 +653,23 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     bulletEmails.circle.fill = am4core.color('#fff');
     bulletEmails.circle.strokeWidth = 3;
 
+    let prevClickedColumn: any = {strokeWidth: 3};
+    bulletEmails.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 3;
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
 // Add cursor
     chartEmails.cursor = new am4charts.XYCursor();
     chartEmails.cursor.fullWidthLineX = true;
@@ -756,6 +789,24 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     bulletMeetings.circle.fill = am4core.color('#fff');
     bulletMeetings.circle.strokeWidth = 3;
 
+
+    let prevClickedColumn: any = {strokeWidth: 3};
+    bulletMeetings.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 3;
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
 // Add cursor
     chartMeetings.cursor = new am4charts.XYCursor();
     chartMeetings.cursor.fullWidthLineX = true;
@@ -859,8 +910,8 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
     seriesCombined.tensionX = 0.8;
     seriesCombined.strokeWidth = 3;
     seriesCombined.stroke = am4core.color('#ffd507');
-    const that = this;
     seriesCombined.segments.template.interactionsEnabled = true;
+    const that = this;
     seriesCombined.segments.template.events.on(
       "hit",
       ev => {
@@ -870,9 +921,28 @@ export class TotalActivitiesComponent implements OnInit, AfterViewInit {
       },
       this
     );
+
     let bulletCombined = seriesCombined.bullets.push(new am4charts.CircleBullet());
     bulletCombined.circle.fill = am4core.color('#fff');
     bulletCombined.circle.strokeWidth = 3;
+
+    let prevClickedColumn: any = {strokeWidth: 3};
+    bulletCombined.events.on("hit", function(ev) {
+      prevClickedColumn.strokeWidth = 3;
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
+
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
 
 // Add cursor
     chartCombined.cursor = new am4charts.XYCursor();

@@ -351,7 +351,12 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     const that = this;
     let prevClickedColumn: any = {strokeWidth: 0};
     distanceSeries4Modal.columns.template.events.on('hit', function (ev) {
-      prevClickedColumn.strokeWidth = 0;
+      if (prevClickedColumn.className === 'RoundedRectangle') {
+        prevClickedColumn.strokeWidth = 0;
+      }
+      else {
+        prevClickedColumn.strokeWidth = 2;
+      }
       if (!ev.target.column['selected']) {
         ev.target.column.strokeWidth = 4;
         ev.target.column.stroke = am4core.color('#ffd740');
@@ -392,7 +397,27 @@ export class UniqueClientsComponent implements OnInit, AfterViewInit {
     latitudeBullet4Modal.circle.fill = am4core.color('#fff');
     latitudeBullet4Modal.circle.strokeWidth = 2;
     latitudeBullet4Modal.circle.propertyFields.radius = 'townSize';
+    latitudeBullet4Modal.events.on('hit', function (ev) {
+      if (prevClickedColumn.className === 'RoundedRectangle') {
+        prevClickedColumn.strokeWidth = 0;
+      }
+      else {
+        prevClickedColumn.strokeWidth = 2;
+      }
+      if (!ev.target.circle['selected']) {
+        ev.target.circle.strokeWidth = 10;
+        prevClickedColumn.selected = false;
+        prevClickedColumn = ev.target.circle;
+        prevClickedColumn.selected = true;
+      }
+      else {
+        ev.target.circle['selected'] = false;
+        prevClickedColumn = {selected: false};
+      }
 
+      that.changed = !that.changed;
+      that.refreshService.setRefreshedData(that.changed);
+    });
     let latitudeState4Modal = latitudeBullet4Modal.states.create('hover');
     latitudeState4Modal.properties.scale = 1.2;
 

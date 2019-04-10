@@ -170,6 +170,7 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
     dateAxisModal.renderer.minGridDistance = 50;
     dateAxisModal.skipEmptyPeriods= true;
     const that = this;
+    let prevClickedColumn: any = {strokeWidth: 2};
 
 // Create series
     function createAxisAndSeries(field, name, opposite, bullet) {
@@ -211,6 +212,23 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
           triangle.direction = 'top';
           triangle.width = 12;
           triangle.height = 12;
+
+          triangle.events.on('hit', function (ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target['selected']) {
+              ev.target.strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target;
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });
           break;
         case 'rectangle':
           let bullet1 = series.bullets.push(new am4charts.Bullet());
@@ -224,11 +242,44 @@ export class IndividualMetricsComponent implements OnInit, AfterViewInit {
           rectangle.strokeWidth = 2;
           rectangle.width = 10;
           rectangle.height = 10;
+
+          rectangle.events.on('hit', function (ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target['selected']) {
+              ev.target.strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target;
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });
           break;
         default:
           let bullet2 = series.bullets.push(new am4charts.CircleBullet());
           bullet2.circle.stroke = interfaceColors.getFor('background');
           bullet2.circle.strokeWidth = 2;
+          bullet2.events.on("hit", function(ev) {
+            prevClickedColumn.strokeWidth = 2;
+            if (!ev.target.circle['selected']) {
+              ev.target.circle.strokeWidth = 10;
+              prevClickedColumn.selected = false;
+              prevClickedColumn = ev.target.circle;
+              prevClickedColumn.selected = true;
+            }
+            else {
+              ev.target.circle['selected'] = false;
+              prevClickedColumn = {selected: false};
+            }
+
+            that.changed = !that.changed;
+            that.refreshService.setRefreshedData(that.changed);
+          });
           break;
       }
 

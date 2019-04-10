@@ -137,30 +137,31 @@
         <div class="col-12 col-sm-12 col-md-3 sol-lg-3" *ngFor="let item of searchItems">
           <form class="" action="" (submit)="goToPage(item.id)">
             <div class="form-group input-container">
-              <input type="text" class="form-control" placeholder="{{item.title}}"
-                     (keyup)="onChangeSearchInput($event, item)">
+              <!--<input type="text" class="form-control" placeholder="{{item.title}}"
+                     (keyup)="onChangeSearchInput($event, item)">-->
+              <input id="typeahead-basic" type="text" class="form-control" [ngbTypeahead]="item.searchFn"
+                     placeholder="{{item.title}}"
+                     [value]="item.model" (input)="item.model = $event.target.value"
+                     #instance="ngbTypeahead" [resultTemplate]="rt"
+                     [inputFormatter]="formatter" (selectItem)="itemSelected($event)"/>
               <i class="icofont icofont-search search-icon" (click)="goToPage(item.id)"></i>
             </div>
           </form>
-          <ul class="submenu-list">
-            <li class="nav-item menu-link-list" *ngFor="let submenu of item.links"
-                [routerLink]=[submenu.id]>
-            <a><i class="{{submenu.icon}}"></i> {{submenu.title}}</a>
-            </li>
-          </ul>
         </div>
       </div>
+      <div class="clear"></div>
     </div>
     <div class="dashboard-side-nav">
       <ul class="nav flex-column">
         <li class="nav-item menu-link-list" *ngFor="let item of menuItems" [ngClass]="{'active': item.active}">
           <div
-             [ngClass]="{'link-self-expanded': item.clicked}" class="menu-link"
-             (mouseenter)="mouseEnter(item)" (mouseleave)="mouseLeave(item)" (click)="onClickMenuItem($event, item)">
-            <i class="{{item.icon}}"></i>
-            <a class="toggle-link toggle-link-span" href="{{item.id}}"
-                  [ngClass]="{'toggle-link-expanded': item.clicked, 'toggle-link-closed': !item.clicked}"
-                  *ngIf="item.link">{{item.title}}</a>
+            [ngClass]="{'link-self-expanded': item.clicked}" class="menu-link"
+            (mouseenter)="mouseEnter(item)" (mouseleave)="mouseLeave(item)"
+            (click)="onClickMenuItem($event, item)">
+            <i class="{{item.icon}}" [ngClass]="{'active': item.id === router.url}"></i>
+            <a class="toggle-link toggle-link-span" [routerLink]=[item.id]
+               [ngClass]="{'toggle-link-expanded': item.clicked, 'toggle-link-closed': !item.clicked}"
+               *ngIf="item.link">{{item.title}}</a>
             <form class="toggle-link toggle-link-form"
                   [ngClass]="{'toggle-link-expanded': item.clicked, 'toggle-link-closed': !item.clicked}"
                   *ngIf="item.searchable" action="" (submit)="goToPage(item.id)">
@@ -203,3 +204,8 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
+<ng-template #rt let-r="result" let-t="term">
+  <a [routerLink]=r.id>
+    <ngb-highlight [result]="r.title" [term]="t"></ngb-highlight>
+  </a>
+</ng-template>
