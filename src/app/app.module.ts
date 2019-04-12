@@ -44,6 +44,9 @@ import {ActivityComissionComponent} from './components/activity-comission/activi
 import {ActivityComparisonComponent} from './components/activity-comparison/activity-comparison.component';
 import {TotalActivitiesComponent} from './components/total-activities/total-activities.component';
 import {ClickOutsideModule} from 'ng-click-outside';
+import {PyramidComponentComponent} from './components/pyramid-component/pyramid-component.component';
+import {PyramidDemoComponent} from './pages/pyramid-demo/pyramid-demo.component';
+import {PMAComponent} from './pages/PMA/PMA.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,10 @@ import {ClickOutsideModule} from 'ng-click-outside';
     IndividualMetricsComponent,
     ActivityComissionComponent,
     ActivityComparisonComponent,
-    TotalActivitiesComponent
+    TotalActivitiesComponent,
+    PyramidComponentComponent,
+    PyramidDemoComponent,
+    PMAComponent
   ],
   imports: [
     BrowserModule,

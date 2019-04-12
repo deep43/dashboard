@@ -8,6 +8,7 @@ import {Observable, Subject, merge} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter, map} from 'rxjs/operators';
 import {NgbTypeahead} from '@ng-bootstrap/ng-bootstrap';
 
+
 const clients = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
@@ -15,7 +16,23 @@ const clients = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Forbes'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Chattered Bank'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Eastern & co.'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Royal Bank of Canada'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Toronto & Montreal'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Bank of Nova Scotia'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Toronto-Dominion Bank'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Bank of Montreal'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Imperial Oil'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Magna International'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Suncor Energy'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'BCE Inc.'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Canadian National Railway'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Potash Corporation '},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'The Woodbridge Company'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Husky Energy'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Great-West Lifeco'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Canadian Natural Resources'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'First Quantum Minerals'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldcorp Inc.'},
 ];
 const symbols = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'AAPPL'},
@@ -23,18 +40,43 @@ const symbols = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'TTS'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'YAHOO'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'CYC'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'NSE'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ARE'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AEM'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AGU'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AIM'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AC.A'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ATD.B'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AGT'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ALA'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ARX'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ACO.X'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ACQ'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'BMO'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'BNS'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ABX'},
+
 ];
 const sectors = [
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Waste & disposal services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industrials'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industrials'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Telecommunications'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Health care'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Financials'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer goods'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industrials'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Utilities'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industrials'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Consumer services'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Utilities'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Technology'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Trading'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Banking'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Health Care'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Nutrition'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Food'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industries'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Servicing'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Manufacturing'},
 ];
 const presets = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Barrick gold'},
@@ -42,8 +84,22 @@ const presets = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Forbes'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'STC'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Chattered Bank'},
-  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Eastern & co.'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Aecon Group'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Agnico Eagle Mines'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Agrium'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Aimia'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Air Canada'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Alimentation Couche Tard'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Alliance Grain Traders'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AltaGas'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ARC Resources'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'ATCO'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'AutoCanada'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Bank of Montreal'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Bank of Nova Scotia'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'Baytex Energy'},
+  {id: '/client', icon: '', clicked: true, searchable: false, title: 'BCE Inc'},
+
 ];
 
 @Component({
@@ -55,11 +111,9 @@ const presets = [
       // ...
       state('open', style({
         display: 'block',
-        overflow: '-webkit-paged-x',
       })),
       state('closed', style({
         display: 'none',
-        overflow: 'hidden',
       })),
       transition('open => closed', [
         animate('0.3s')
@@ -110,6 +164,8 @@ export class MainNavComponent {
   menuItems = [
     {id: '/', icon: 'feather icon-bar-chart', clicked: true, link: true, title: 'General Dashboard'},
     {id: '/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
+    {id: '/pyramid', icon: 'feather icon-map', clicked: true, link: true, title: 'Pyramid Demo'},
+    {id: '/pma', icon: 'feather icon-grid', clicked: true, link: true, title: 'PMA'},
     {
       id: '/client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
       links: [
@@ -158,7 +214,7 @@ export class MainNavComponent {
       distinctUntilChanged(),
       map(term => clients.filter(v => {
         return term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1
-      }).slice(0, 10))
+      }))
     );
 
   formatter = (x: {title: string}) => x.title;
@@ -168,27 +224,27 @@ export class MainNavComponent {
       debounceTime(200),
       distinctUntilChanged(),
       map(term => symbols.filter(
-        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1))
     ));
   searchSector = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => sectors.filter(
-        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1))
     );
   searchPreset = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map(term => presets.filter(
-        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+        v => term.toLowerCase() && v.title.toLowerCase().indexOf(term.toLowerCase()) > -1))
     );
 
   searchItems = [
     {
       id: 'client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
-      model: 'ssssssss',
+      model: '',
       links: [
         /*{id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'EY'},
