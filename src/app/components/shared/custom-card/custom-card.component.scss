@@ -14,7 +14,7 @@
   flex: 1 1 auto;
   justify-content: flex-end;
 
-  i{
+  i {
     padding-left: 10px;
     cursor: pointer;
     padding-top: 5px;
@@ -24,6 +24,11 @@
 .modal-content {
   background: #565656 !important;
   color: white;
+  min-height: 92vh;
+
+  .ag-body-viewport.ag-layout-normal {
+    min-height: 29vh;
+  }
 
   .ag-theme-balham-dark .ag-row-even {
     background-color: #565656;
@@ -68,13 +73,15 @@
 .mat-card {
   height: 100%;
 }
-.full-screen{
+
+.full-screen {
   cursor: pointer;
 }
 
 .client-link {
   color: #67b7dc;
 }
-.hidden{
+
+.hidden {
   display: none;
 }

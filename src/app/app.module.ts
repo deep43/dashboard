@@ -47,6 +47,8 @@ import {ClickOutsideModule} from 'ng-click-outside';
 import {PyramidComponentComponent} from './components/pyramid-component/pyramid-component.component';
 import {PyramidDemoComponent} from './pages/pyramid-demo/pyramid-demo.component';
 import {PMAComponent} from './pages/PMA/PMA.component';
+import {AggregatorTwoComponent} from './pages/aggregator-two/aggregator-two.component';
+import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +78,8 @@ import {PMAComponent} from './pages/PMA/PMA.component';
     TotalActivitiesComponent,
     PyramidComponentComponent,
     PyramidDemoComponent,
+    AggregatorTwoComponent,
+    AggregatorOneComponent,
     PMAComponent
   ],
   imports: [

@@ -49,11 +49,26 @@
         <span>Equity Apps</span>
         <i class="feather icon-chevron-down f-14 p-l-5"></i>
       </a>
-      <a href="javascript:" (click)="toggleSearchMenu()" class="toggle-mega-menu mega-menu-link search-link">
+      <!--<a href="javascript:" (click)="toggleSearchMenu()" class="toggle-mega-menu mega-menu-link search-link">
         <span></span>
         <i class="feather icon-search f-14 p-l-5"></i>
-      </a>
-
+      </a>-->
+      <div class="row search-container">
+        <div class="col-12 col-sm-12 col-md-3 sol-lg-3" *ngFor="let item of searchItems">
+          <form class="input-container-form" action="" (submit)="goToPage(item.id)">
+            <div class="form-group input-container">
+              <!--<input type="text" class="form-control" placeholder="{{item.title}}"
+                     (keyup)="onChangeSearchInput($event, item)">-->
+              <input id="typeahead-basic" type="text" class="form-control" [ngbTypeahead]="item.searchFn"
+                     placeholder="{{item.title}}"
+                     [value]="item.model" (input)="item.model = $event.target.value"
+                     #instance="ngbTypeahead" [resultTemplate]="rt"
+                     [inputFormatter]="formatter" (selectItem)="itemSelected($event)"/>
+              <i class="icofont icofont-search search-icon" (click)="goToPage(item.id)"></i>
+            </div>
+          </form>
+        </div>
+      </div>
       <div class="right-side-menu">
         <a href="javascript:" appToggleFullScreen>
           <i class="feather icon-maximize full-screen"></i>
@@ -133,12 +148,12 @@
          [exclude]="'.search-link'"
          [@openClose]="searchOpened ? 'open' : 'closed'"
          (keydown.esc)="onEscKeyUp($event)">
-      <div class="row">
+      <!--<div class="row">
         <div class="col-12 col-sm-12 col-md-3 sol-lg-3" *ngFor="let item of searchItems">
           <form class="input-container-form" action="" (submit)="goToPage(item.id)">
             <div class="form-group input-container">
-              <!--<input type="text" class="form-control" placeholder="{{item.title}}"
-                     (keyup)="onChangeSearchInput($event, item)">-->
+              &lt;!&ndash;<input type="text" class="form-control" placeholder="{{item.title}}"
+                     (keyup)="onChangeSearchInput($event, item)">&ndash;&gt;
               <input id="typeahead-basic" type="text" class="form-control" [ngbTypeahead]="item.searchFn"
                      placeholder="{{item.title}}"
                      [value]="item.model" (input)="item.model = $event.target.value"
@@ -148,8 +163,7 @@
             </div>
           </form>
         </div>
-      </div>
-      <div class="clear"></div>
+      </div>-->
     </div>
     <div class="dashboard-side-nav">
       <ul class="nav flex-column">

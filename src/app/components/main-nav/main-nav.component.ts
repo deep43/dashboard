@@ -166,7 +166,8 @@ export class MainNavComponent {
     {id: '/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
     {id: '/pyramid', icon: 'feather icon-map', clicked: true, link: true, title: 'Pyramid Demo'},
     {id: '/pma', icon: 'feather icon-grid', clicked: true, link: true, title: 'PMA'},
-    {
+    {id: '/aggregatorone', icon: 'feather icon-map', clicked: true, link: true, title: 'Aggregator One'},
+    /*{
       id: '/client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',
       links: [
         {id: '/client', icon: '', clicked: true, searchable: false, title: 'Goldman Sachs'},
@@ -201,7 +202,8 @@ export class MainNavComponent {
         {id: '/preset', icon: '', clicked: true, searchable: false, title: 'FxExchange'},
         {id: '/preset', icon: 'feather icon-plus', clicked: true, searchable: false, title: 'Add New'}
       ]
-    }];
+    }*/
+  ];
   menuItemsCopy = this.menuItems.map(x => Object.assign({}, x));
 
   @ViewChild('instance') instance: NgbTypeahead;
@@ -217,7 +219,7 @@ export class MainNavComponent {
       }))
     );
 
-  formatter = (x: {title: string}) => x.title;
+  formatter = (x: { title: string }) => x.title;
 
   searchSymbol = ((text$: Observable<string>) =>
     text$.pipe(
@@ -317,8 +319,8 @@ export class MainNavComponent {
     }
   }
 
-  clearSearchBoxes(){
-    this.searchItems = this.searchItems.map((item)=>{
+  clearSearchBoxes() {
+    this.searchItems = this.searchItems.map((item) => {
       item.model = '';
       return item;
     });
@@ -454,7 +456,7 @@ export class MainNavComponent {
     let itemCopy = this.menuItemsCopy.filter(itemCopy => {
       return itemCopy.title === item.title;
     })[0];
-    item.links = itemCopy.links.filter(link => {
+    item['links'] = itemCopy['links'].filter(link => {
       return link.title.toLowerCase().indexOf($event.target.value.toLowerCase()) >= 0;
     });
   }
@@ -468,7 +470,7 @@ export class MainNavComponent {
     });
   }
 
-  itemSelected(event){
+  itemSelected(event) {
     this.router.navigateByUrl(event.item.id);
   }
 }

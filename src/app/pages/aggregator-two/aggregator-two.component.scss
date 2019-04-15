@@ -1,0 +1,286 @@
+.aggregator-two {
+  margin-top: 80px;
+
+  .expand-col {
+    text-align: right;
+    margin: 10px 0;
+
+    .btn {
+      background: #231e1e;
+      margin-left: 10px;
+      color: white;
+
+      &.expand {
+        background: #67b7dc;
+      }
+    }
+  }
+  .details-heading {
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #c1c1c1;
+  }
+
+  /*.percent {
+    font-size: 30px;
+    padding-right: 0;
+  }
+  [vertical-layout="box"]{
+    .percent {
+      font-size: 20px;
+      padding-right: 0;
+    }
+  }*/
+
+  .percent {
+    font-size: 30px;
+    padding: 0 15px;
+  }
+
+  .progress-col {
+    padding-top: 11px;
+    padding-left: 0;
+    width: 80% !important;
+  }
+
+  .progress-card {
+    .card-block {
+      padding: 12px 20px;
+    }
+  ;
+
+    .card {
+      margin-bottom: 10px;
+    }
+  }
+
+  .toggle-card {
+    float: right;
+  }
+
+  .rows-per-page {
+    max-width: 12%;
+    display: inline-block;
+    font-size: 12px;
+    padding: 0 5px;
+  }
+
+  .page-change-row {
+    position: absolute;
+    bottom: 15px;
+    display: block;
+    width: 100%;
+    font-size: 12px;
+
+    .text-interaction {
+      color: #67b7dc;
+    }
+  }
+
+  .table-card {
+    position: relative;
+  }
+
+  .table-row {
+    .ag-row-hover {
+      background-color: rgba(103, 183, 220, 0.64) !important;
+    }
+    .ag-row-selected {
+      background-color: #67b7dc !important;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .ag-root-wrapper {
+      i {
+        font-size: 20px;
+      }
+
+      .btn-sm {
+        padding-top: 2px;
+      }
+    }
+  }
+
+
+  .green {
+    color: #67b7dc;
+  }
+
+  .client-link {
+    color: white !important;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .dark {
+    .client-link {
+      color: #ff5252 !important;
+    }
+  }
+
+  .ag-group-value,
+  .ag-group-child-count {
+    //display: none;
+  }
+
+  .column-heading {
+    border-bottom: 1px solid #606060;
+    width: 100%;
+    padding-bottom: 10px;
+    text-align: left;
+  }
+
+  .details-modal-content {
+    overflow-y: auto;
+    max-height: 500px;
+  }
+
+  .date-pattern {
+    display: flex;
+
+    .input-group-text {
+      background-color: #67b7dc;
+    }
+  }
+}
+
+.agr-two-modal {
+  .heading{
+    padding-left: 15px;
+  }
+  .date-pattern {
+    display: flex;
+
+    .input-group-text {
+      background-color: #67b7dc;
+    }
+  }
+  .from{
+    padding-right: 5px;
+    padding-top: 5px;
+  }
+  .btn {
+    background: #231e1e;
+    margin-left: 10px;
+    color: white;
+
+    &:first-child{
+      margin-left: 0;
+    }
+  }
+
+  input, select{
+    background: #424242;
+    color: white;
+    border-color: #67b7dc;
+
+    &::placeholder{
+      color: #c1c1c1;
+    }
+
+    &:focus{
+      background: #212121;
+      color: white;
+    }
+  }
+
+  .text-success{
+    color: #67b7dc;
+  }
+}
+.agr-two-modal {
+  .modal-content {
+    width: 90% !important;
+    max-width: 100% !important;
+    margin: auto;
+  }
+
+  .button-list-row {
+    text-align: right;
+    display: inline;
+
+    .btn {
+      margin-left: 10px !important;
+      display: inline;
+
+      i {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .heading {
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-left: 20px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+  }
+  .heading-row {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .chat-row {
+    max-height: 350px;
+    overflow-y: auto;
+
+    .chat-col {
+      margin-top: 20px;
+    }
+  }
+  .card {
+    padding: 0;
+  }
+
+  .card-block {
+    padding-top: 0;
+  }
+
+  .action-row {
+    margin-top: 10px;
+    text-align: right;
+    .add-comment {
+      margin-right: 10px !important;
+      display: inline-block;
+    }
+    .cancel {
+      display: inline-block;
+      color: white;
+      background-color: #676565;
+    }
+    .btn {
+      padding: 5px !important;
+      i {
+        font-size: 18px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .close-row {
+    text-align: left;
+    .btn {
+      display: inline-block;
+    }
+  }
+}
+
+.p-r-20 {
+  padding-right: 20px;
+}
+
+.p-r-10 {
+  padding-right: 10px;
+}
+
+.p-l-10 {
+  padding-left: 10px;
+}
+
+.p-t-5 {
+  padding-top: 5px;
+}

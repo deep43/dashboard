@@ -1,0 +1,145 @@
+<div class="page-body agr-one">
+
+  <div class="row">
+    <div class="col-sm-12">
+      <app-card [title]="" [noActions]="true" class="table-card">
+
+        <div class="row table-row">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <ag-grid-angular
+              class="{{appliedThemeClassOnTable}}"
+              [rowData]="rowData"
+              [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef"
+              [floatingFilter]="true"
+              [animateRows]="true"
+              [pagination]="true"
+              [paginationPageSize]="20"
+              (gridReady)="onGridReady($event)"
+              (firstDataRendered)="onFirstDataRendered($event)"
+            >
+            </ag-grid-angular>
+
+          </div>
+        </div>
+
+        <div class="row page-change-row">
+          <div class="col-12 col-sm-6">
+            <button class="btn btn-sm add" (click)="openMyModal($event)">
+              <i class="icofont icofont-contact-add"></i> Add Investor Detail
+            </button>
+            <label class="p-r-10 filter-on-mob p-t-5">Show </label>
+            <select name="select"
+                    (change)="onPageSizeChanged()" id="page-size"
+                    class="rows-per-page"
+                    [(ngModel)]="selectedRowsPerPage">
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20" selected>20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+              <option value="35">35</option>
+              <option value="40">40</option>
+            </select>
+            <label class="p-l-10">entries</label>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade agr-one-modal" bsModal #modal="bs-modal"
+     tabindex="-1" role="dialog" aria-labelledby="dialog-events-name">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row heading-row">
+          <h5 class="heading">
+            Investor Details
+          </h5>
+        </div>
+      </div>
+      <div class="modal-body details-modal-content">
+        <div class="row">
+          <div class="col-lg-12 m-t-20">
+            <form class="md-float-material form-material login-form" action="javascript:">
+              <div class="form-group form-primary">
+                <label class="float-label ">Investor</label>
+                <input type="text" name="investor" class="form-control" required=""
+                       [(ngModel)]="selectedInvDetail.investor">
+                <span class="form-bar"></span>
+              </div>
+              <div class="form-group form-primary">
+                <select name="vendor" class="form-control form-control-inverse"
+                        [(ngModel)]="selectedInvDetail.vendor">
+                  <option value="OneAccess">OneAccess</option>
+                  <option value="Commcise">Commcise</option>
+                  <option value="CorpAxe">CorpAxe</option>
+                  <option value="A2">A2</option>
+                  <option value="Bloomberg">Bloomberg</option>
+                  <option value="MarkIt">MarkIt</option>
+                </select>
+              </div>
+              <label class="float-label ">Investor Deadline</label>
+              <div class="form-group form-primary date-pattern">
+                <input class="form-control"
+                       placeholder="yyyy-mm-dd" name="dp"
+                       [(ngModel)]="selectedInvDetail.deadLine"
+                       ngbDatepicker #d="ngbDatepicker">
+                <div class="input-group-append p-l-0">
+                  <span class="input-group-text" (click)="d.toggle()">
+                    <i class="icofont icofont-ui-calendar"></i>
+                  </span>
+                </div>
+
+              </div>
+              <div class="form-group form-primary">
+                <label class="float-label ">Data Set</label>
+                <input type="text" name="dataset" class="form-control" required=""
+                       [(ngModel)]="selectedInvDetail.dataSet">
+                <span class="form-bar"></span>
+              </div>
+              <div class="form-group form-primary">
+                <label class="float-label ">Status</label>
+                <input type="text" name="status" class="form-control" required=""
+                       [(ngModel)]="selectedInvDetail.status">
+                <span class="form-bar"></span>
+              </div>
+              <div class="form-group form-primary">
+                <label class="float-label ">Errors</label>
+                <input type="number" name="errors" class="form-control" required=""
+                       [(ngModel)]="selectedInvDetail.errors">
+                <span class="form-bar"></span>
+              </div>
+              <div class="form-group form-primary">
+                <label class="float-label ">Review</label>
+                <input type="number" name="review" class="form-control" required=""
+                       [(ngModel)]="selectedInvDetail.review">
+                <span class="form-bar"></span>
+              </div>
+              <div class="form-group form-primary">
+                <select name="published" class="form-control form-control-inverse"
+                        [(ngModel)]="selectedInvDetail.published">
+                  <option value="Published">Published</option>
+                  <option value="Unpublished">Unpublished</option>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 close-row">
+            <button class="btn btn-success btn-sm save" (click)="addInvestorDetail($event)">
+              Save
+            </button>
+            <button class="btn btn-success btn-sm" (click)="closeMyModal($event)">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

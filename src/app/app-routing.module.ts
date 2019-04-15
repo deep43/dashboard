@@ -6,6 +6,8 @@ import {ReportCardComponent} from './pages/report-card/report-card.component';
 import {AccountManagerComponent} from './pages/account-manager/account-manager.component';
 import {PyramidDemoComponent} from './pages/pyramid-demo/pyramid-demo.component';
 import {PMAComponent} from './pages/PMA/PMA.component';
+import {AggregatorTwoComponent} from './pages/aggregator-two/aggregator-two.component';
+import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,14 @@ const routes: Routes = [
   {
     path: 'pma',
     component: PMAComponent,
+  },
+  {
+    path: 'aggregatorone',
+    component: AggregatorOneComponent,
+  },
+  {
+    path: 'aggregatortwo',
+    component: AggregatorTwoComponent,
   }
 ];
 

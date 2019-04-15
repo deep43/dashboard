@@ -494,7 +494,7 @@ i{
   clear: both;
 }
 .search-container {
-  position: absolute;
+  /*position: absolute;
   z-index: 3;
   background: #4f4f4f;
   margin-top: 40px;
@@ -502,7 +502,7 @@ i{
   padding-bottom: 11px;
   left: 13.5%;
   border: 1px solid #383232;
-  box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 8px -9px rgba(0, 0, 0, 0.2);*/
 
   .dropdown-menu.show{
     display: block !important;
@@ -544,7 +544,8 @@ i{
 
       .dropdown-item {
         color: white;
-        padding: 10px;
+        padding: 5px;
+        font-size: 14px;
         a{
           color: white;
         }
@@ -556,14 +557,14 @@ i{
     }
     input {
       border-radius: 0;
-      height: 40px;
-      background: #4f4f4f;
+      height: 25px;
+      background: #424242;
       color: white;
       padding: 0 10px;
       border: none;
-      border-bottom: 2px solid #ced4da;
+      border-bottom: 2px solid #d1d1d1;
       &::placeholder {
-        color: white;
+        color: #d1d1d1;
         font-size: 14px;
       }
 
@@ -573,10 +574,11 @@ i{
     }
     .search-icon {
       position: absolute;
-      right: 10px;
-      top: 24px;
+      right: 5px;
+      top: 15px;
       cursor: pointer;
       color: #ffd507;
+      font-size: 15px;
     }
   }
   .submenu-list {
