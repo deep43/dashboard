@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, Input} from '@angular/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import * as am4core from '@amcharts/amcharts4/core';
 import {RefreshService} from '../shared/service/refresh.service';
@@ -11,6 +11,7 @@ import {RefreshService} from '../shared/service/refresh.service';
 export class IndividualMetricsComponent implements OnInit, AfterViewInit {
   chart: any;
   changed = false;
+  @Input() height: string = '20vh';
 
   constructor(private refreshService: RefreshService) {
   }

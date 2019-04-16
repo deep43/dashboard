@@ -18,6 +18,10 @@
 }
 
 .print-modal{
+  .modal-content{
+    max-height: 17vh !important;
+    min-height: 17vh !important;
+  }
   .modal-dialog{
     max-width: 600px;
   }

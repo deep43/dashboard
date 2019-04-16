@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, NgZone, OnDestroy} from '@angular/core';
+import {Component, OnInit, AfterViewInit, NgZone, OnDestroy, Input} from '@angular/core';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import {RefreshService} from '../shared/service/refresh.service';
@@ -11,7 +11,7 @@ import {RefreshService} from '../shared/service/refresh.service';
 export class AccountActivityComponent implements OnInit, AfterViewInit, OnDestroy {
   private chart: am4charts.XYChart;
   private changed = false;
-
+  @Input() height: string = '24vh';
   constructor(private zone: NgZone, private refreshService: RefreshService) {
   }
 

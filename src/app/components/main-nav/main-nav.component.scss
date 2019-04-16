@@ -84,7 +84,6 @@ i{
 
 .right-side-menu {
   display: flex;
-  flex: 1 1 auto;
   justify-content: flex-end;
   font-size: 14px;
 
@@ -494,6 +493,10 @@ i{
   clear: both;
 }
 .search-container {
+  max-width: 45%;
+  margin: 0 auto;
+  display: flex;
+  flex: 1 1 0;
   /*position: absolute;
   z-index: 3;
   background: #4f4f4f;

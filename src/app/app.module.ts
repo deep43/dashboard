@@ -49,6 +49,7 @@ import {PyramidDemoComponent} from './pages/pyramid-demo/pyramid-demo.component'
 import {PMAComponent} from './pages/PMA/PMA.component';
 import {AggregatorTwoComponent} from './pages/aggregator-two/aggregator-two.component';
 import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.component';
+import {FourGraphDemoComponent} from './pages/four-graph-demo/four-graph-demo.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.comp
     PyramidDemoComponent,
     AggregatorTwoComponent,
     AggregatorOneComponent,
-    PMAComponent
+    PMAComponent,
+    FourGraphDemoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-12 col-sm-12 col-md-12 col-lg-12 heading-container">
+    <h5 class="dashboard-heading">Account Manager Activity</h5>
+    <input type="text" matInput
+           ngxDaterangepickerMd class="form-control date-range"
+           [locale]="{format: 'MMMM DD, YYYY'}"
+           [alwaysShowCalendars]="true"
+           [showDropdowns]="true"
+           [(ngModel)]="selected"
+           [ranges]="ranges"/>
+  </div>
+</div>
+<div class="row home-page-row">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-account-activity [height]="'36vh'"></app-account-activity>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-weekly-performance [height]="'36vh'"></app-weekly-performance>
+  </div>
+</div>
+<div class="row home-page-row">
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-individual-metrics [height]="'32vh'"></app-individual-metrics>
+  </div>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+    <app-activity-comission [height]="'36vh'"></app-activity-comission>
+  </div>
+</div>

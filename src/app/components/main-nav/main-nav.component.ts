@@ -166,6 +166,7 @@ export class MainNavComponent {
     {id: '/accountsactivity', icon: 'feather icon-activity', clicked: true, link: true, title: 'Activity Manager'},
     {id: '/pyramid', icon: 'feather icon-map', clicked: true, link: true, title: 'Pyramid Demo'},
     {id: '/pma', icon: 'feather icon-grid', clicked: true, link: true, title: 'PMA'},
+    {id: '/fourchart', icon: 'feather icon-grid', clicked: true, link: true, title: 'Four Column Chart'},
     {id: '/aggregatorone', icon: 'feather icon-map', clicked: true, link: true, title: 'Aggregator One'},
     /*{
       id: '/client', icon: 'feather icon-briefcase', clicked: true, submenuWithSearch: true, title: 'Search Client',

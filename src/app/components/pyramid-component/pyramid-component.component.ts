@@ -237,6 +237,7 @@ export class PyramidComponentComponent implements OnInit, AfterViewInit, OnDestr
       maleSeries.calculatePercent = true;
       maleSeries.dataFields.categoryY = "age";
       maleSeries.interpolationDuration = 1000;
+      maleSeries.fill = am4core.color('#9ccc65');
       maleSeries.columns.template.tooltipText = "Males, age{categoryY}: {valueX} ({valueX.percent.formatNumber('#.0')}%)";
 //maleSeries.sequencedInterpolation = true;
 
@@ -265,7 +266,7 @@ export class PyramidComponentComponent implements OnInit, AfterViewInit, OnDestr
       femaleSeries.dataFields.valueX = "female";
       femaleSeries.dataFields.valueXShow = "percent";
       femaleSeries.calculatePercent = true;
-      femaleSeries.fill = femaleChart.colors.getIndex(4);
+      femaleSeries.fill = am4core.color('#ff5252');
       femaleSeries.stroke = femaleSeries.fill;
 //femaleSeries.sequencedInterpolation = true;
       femaleSeries.columns.template.tooltipText = "Females, age{categoryY}: {valueX} ({valueX.percent.formatNumber('#.0')}%)";
