@@ -50,6 +50,7 @@ import {PMAComponent} from './pages/PMA/PMA.component';
 import {AggregatorTwoComponent} from './pages/aggregator-two/aggregator-two.component';
 import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.component';
 import {FourGraphDemoComponent} from './pages/four-graph-demo/four-graph-demo.component';
+import {CustomTooltipComponent} from './pages/PMA/custom-tooltip.component';
 
 @NgModule({
   declarations: [
@@ -81,8 +82,9 @@ import {FourGraphDemoComponent} from './pages/four-graph-demo/four-graph-demo.co
     PyramidDemoComponent,
     AggregatorTwoComponent,
     AggregatorOneComponent,
+    CustomTooltipComponent,
     PMAComponent,
-    FourGraphDemoComponent
+    FourGraphDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,7 +121,10 @@ import {FourGraphDemoComponent} from './pages/four-graph-demo/four-graph-demo.co
   ],
   exports: [ModalModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    CustomTooltipComponent
+  ]
 })
 export class AppModule {
 }

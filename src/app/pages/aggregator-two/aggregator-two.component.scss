@@ -104,7 +104,6 @@
     }
   }
 
-
   .green {
     color: #67b7dc;
   }
@@ -148,7 +147,15 @@
 }
 
 .agr-two-modal {
-  .heading{
+  .compact {
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+  .modal-header {
+    padding: 0.2rem 1rem;
+  }
+  .heading {
     padding-left: 15px;
   }
   .date-pattern {
@@ -158,39 +165,41 @@
       background-color: #67b7dc;
     }
   }
-  .from{
+  .from {
     padding-right: 5px;
     padding-top: 5px;
   }
   .btn {
-    background: #231e1e;
-    margin-left: 10px;
+    background: #67b7dc;
     color: white;
+    border: none;
+    margin-left: 10px;
 
-    &:first-child{
+    &:first-child {
       margin-left: 0;
     }
   }
 
-  input, select{
+  input, select {
     background: #424242;
     color: white;
     border-color: #67b7dc;
 
-    &::placeholder{
+    &::placeholder {
       color: #c1c1c1;
     }
 
-    &:focus{
+    &:focus {
       background: #212121;
       color: white;
     }
   }
 
-  .text-success{
+  .text-success {
     color: #67b7dc;
   }
 }
+
 .agr-two-modal {
   .modal-content {
     width: 90% !important;
@@ -201,6 +210,7 @@
   .button-list-row {
     text-align: right;
     display: inline;
+    margin-top: 7px;
 
     .btn {
       margin-left: 10px !important;
@@ -265,6 +275,9 @@
     text-align: left;
     .btn {
       display: inline-block;
+      background: #67b7dc;
+      color: white;
+      border: none;
     }
   }
 }

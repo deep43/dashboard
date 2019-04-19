@@ -17,6 +17,7 @@ export class PyramidComponentComponent implements OnInit, AfterViewInit, OnDestr
   @ViewChild('agGrid') agGrid: AgGridNg2;
 
   @Input() ID1: string;
+  @Input() title: string;
   private chart: am4charts.XYChart;
   changed = false;
   appliedThemeClassOnTable = 'ag-theme-balham-dark';

@@ -9,7 +9,7 @@ import {ModalDirective} from 'ngx-bootstrap/modal';
 
 declare var $: any;
 
-interface Investor {
+interface   Investor {
   id?: number;
   investor?: string;
   vendor?: string;

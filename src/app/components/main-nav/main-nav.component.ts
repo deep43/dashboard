@@ -56,6 +56,7 @@ const symbols = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'ABX'},
 
 ];
+
 const sectors = [
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Waste & disposal services'},
   {id: '/client', icon: '', clicked: true, searchable: false, title: 'Industrials'},

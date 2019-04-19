@@ -21,29 +21,28 @@
     float: right;
   }
 
-  .rows-per-page {
+  /*.rows-per-page {
     max-width: 12%;
     display: inline-block;
     font-size: 12px;
     padding: 0 5px;
-  }
+  }*/
 
   .page-change-row {
     position: absolute;
-    bottom: 17px;
+    bottom: 80px;
     display: block;
     width: 100%;
     font-size: 12px;
-
-    .add {
-      margin-right: 20px;
-      font-size: 14px;
-      background: #67b7dc;
-      color: white;
-      margin-left: 10px;
-    }
+    margin-left: -3px;
   }
-
+  .add {
+    font-size: 14px;
+    background: #67b7dc;
+    color: white;
+    line-height: 1.5rem;
+    margin: 15px 0;
+  }
   .table-card {
     position: relative;
   }
@@ -57,7 +56,7 @@
     .edit {
       color: white !important;
       background: #67b7dc;
-      // border: 1px solid white;
+      line-height: 0.8rem;
     }
 
     .hide {
@@ -88,7 +87,7 @@
     text-align: center;
     width: 100%;
     color: white;
-    padding: 10px 0;
+    padding: 15px 5px 10px 0;
     margin-bottom: 10px;
   }
   .heading-row {
@@ -136,21 +135,28 @@
     text-align: left;
     .btn {
       display: inline-block;
+      background: #67b7dc;
+      color: white;
+      border: none;
     }
     .save{
-      margin-right: 20px !important;
+      margin-right: 10px !important;
     }
   }
 }
 .agr-one-modal {
+  .modal-header{
+    padding: 0 1rem;
+  }
   .heading{
-    padding-left: 15px;
+    padding-left: 20px;
   }
 
   .btn {
-    background: #231e1e;
-    margin-left: 10px;
+    background: #67b7dc;
     color: white;
+    border: none;
+    margin-left: 10px;
 
     &:first-child{
       margin-left: 0;

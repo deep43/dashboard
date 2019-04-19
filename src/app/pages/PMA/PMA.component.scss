@@ -1,38 +1,39 @@
-.home-page-row{
- padding: 10px 0;
+.home-page-row {
+  padding: 10px 0;
 }
-.pma-btns{
+
+.pma-btns {
   display: inline;
   margin: 0 20px;
 
   .btn-primary:not(:disabled):not(.disabled):active,
   .btn-primary:not(:disabled):not(.disabled).active,
-  .show > .btn-primary.dropdown-toggle{
+  .show > .btn-primary.dropdown-toggle {
     background: #507e9f;
     border-color: #138f9f;
   }
 
-  .btn{
+  .btn {
     background: #67b7dc;
     border-color: #00e0f5;
     border-radius: 0;
   }
 }
 
-.action-btns{
+.action-btns {
   margin-left: 10px;
   display: inline;
 
-  .btn{
+  .btn {
     margin: 0 10px;
     border-radius: 0;
   }
 }
 
-.pma-infos{
+.pma-infos {
   margin: 30px -10px 20px -10px;
 
-  .info{
+  .info {
     text-align: right;
     background: #4f4f4f;
     padding: 10px;
@@ -41,5 +42,202 @@
     font-size: 20px;
     line-height: 2.5rem;
     font-weight: 450;
+    .value {
+      position: relative;
+      display: inline;
+    }
+    .arrow {
+      position: absolute;
+      left: -25px;
+      top: 4px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      &.green {
+        border-bottom: 20px solid #aff9aff2;
+      }
+      &.red {
+        border-top: 20px solid #ff5252;
+      }
+
+    }
   }
+}
+
+.pma-grid {
+  .symbol-col {
+    position: relative;
+  }
+  .ag-theme-balham-dark {
+    font-weight: 600 !important;
+  }
+  .ag-theme-balham-dark .ag-row-even {
+    background-color: #565656;
+  }
+
+  .ag-theme-balham-dark .ag-row-odd {
+    background-color: #424242;
+  }
+
+  .ag-theme-balham-dark .ag-header {
+    background-color: #424242;
+  }
+  ::ng-deep .client-link {
+    color: white;
+    font-weight: bold;
+  }
+  .red-green-cell {
+    color: black;
+    padding: 0 10px;
+  }
+  .green-cell {
+    @extend .red-green-cell;
+    background: #aff9aff2;
+  }
+  .red-cell {
+    @extend .red-green-cell;
+    background: #ff5252;
+  }
+}
+.manual-trade-modal {
+  .modal-content{
+    width: 45% !important;
+    margin: auto;
+    min-height: auto;
+    background: #4f4f4f;
+  }
+  &.all-trades-modal{
+    .modal-lg, .modal-xl{
+      max-width: 1200px;
+    }
+    .modal-content {
+      width: 100% !important;
+    }
+  }
+  .input-group-text{
+    max-height: 38px;
+  }
+  .heading {
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding: 15px 5px 10px 0;
+    margin-bottom: 10px;
+  }
+  .heading-row {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+  .chat-row {
+    max-height: 350px;
+    overflow-y: auto;
+
+    .chat-col {
+      margin-top: 20px;
+    }
+  }
+  .card {
+    padding: 0;
+  }
+
+  .card-block {
+    padding-top: 0;
+  }
+
+  .action-row {
+    margin-top: 10px;
+    text-align: right;
+    .add-comment {
+      margin-right: 10px !important;
+      display: inline-block;
+    }
+    .cancel {
+      display: inline-block;
+      color: white;
+      background-color: #676565;
+    }
+    .btn {
+      padding: 5px !important;
+      i {
+        font-size: 18px;
+        margin-right: 0;
+      }
+    }
+  }
+
+  .close-row {
+    text-align: left;
+    margin-top: 20px;
+    .btn {
+      display: inline-block;
+      background: #67b7dc;
+      color: white;
+      border: none;
+
+      &:focus, &:active{
+        background: #67b7dc;
+        color: white;
+        border: none;
+        box-shadow: none !important;
+      }}
+    .save{
+      margin-right: 10px !important;
+    }
+  }
+}
+.manual-trade-modal {
+  .acc-label{
+    padding-right: 15px;
+  }
+  .modal-header{
+    padding: 0 1rem;
+  }
+  .heading{
+    padding-left: 20px;
+  }
+
+  .btn {
+    background: #67b7dc;
+    color: white;
+    border: none;
+    margin-left: 10px;
+
+    &:focus, &:active{
+      background: #67b7dc;
+      color: white;
+      border: none;
+    }
+
+    &:first-child{
+      margin-left: 0;
+    }
+  }
+
+  input, select{
+    background: #424242;
+    color: white;
+    border-color: #67b7dc;
+
+    &::placeholder{
+      color: #c1c1c1;
+    }
+
+    &:focus{
+      background: #212121;
+      color: white;
+    }
+  }
+
+  .text-success{
+    color: #67b7dc;
+  }
+}
+
+.modal-backdrop{
+  display: none;
+}
+
+.modal-open .modal {
+  background: rgba(0, 0, 0, 0.62);
 }
