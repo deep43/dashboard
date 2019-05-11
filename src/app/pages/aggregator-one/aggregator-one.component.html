@@ -1,56 +1,120 @@
 <div class="page-body agr-one">
-
   <div class="row">
     <div class="col-sm-12">
-      <app-card [title]="" [noActions]="true" class="table-card">
-
-        <div class="row table-row">
-          <div class="col-md-12 col-sm-12 col-lg-12">
-            <ag-grid-angular
-              class="{{appliedThemeClassOnTable}}"
-              [rowData]="rowData"
-              [columnDefs]="columnDefs"
-              [defaultColDef]="defaultColDef"
-              [floatingFilter]="true"
-              [animateRows]="true"
-              [pagination]="true"
-              [paginationPageSize]="20"
-              (gridReady)="onGridReady($event)"
-              (firstDataRendered)="onFirstDataRendered($event)"
-            >
-            </ag-grid-angular>
-
+      <mat-tab-group  (selectedTabChange)="onTabChange($event)">
+        <mat-tab label="Grid Layouts">
+          <div class="row">
+            <div class="col-12 col-sm-4 col-md-4 col-lg-4 first-grid-col">
+              <app-card [title]="'First Grid'" [noActions]="true" class="table-card">
+                <ag-grid-angular
+                  class="{{appliedThemeClassOnTable}}"
+                  [rowData]="rowData"
+                  [columnDefs]="columnDefs"
+                  [defaultColDef]="defaultColDef"
+                  [floatingFilter]="true"
+                  [animateRows]="true"
+                  [pagination]="true"
+                  [paginationPageSize]="22"
+                  (gridReady)="onGridReady($event)"
+                  (firstDataRendered)="onFirstDataRendered($event)">
+                </ag-grid-angular>
+              </app-card>
+            </div>
+            <div class="col-12 col-sm-8 col-md-8 col-lg-8">
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 second-grid-col">
+                  <app-card [title]="'Second Grid'" [noActions]="true" class="table-card">
+                    <ag-grid-angular
+                      class="{{appliedThemeClassOnTable}}"
+                      [rowData]="rowData"
+                      [columnDefs]="columnDefs"
+                      [defaultColDef]="defaultColDef"
+                      [floatingFilter]="true"
+                      [animateRows]="true"
+                      [pagination]="true"
+                      [paginationPageSize]="8"
+                      (gridReady)="onGridReady($event)"
+                      (firstDataRendered)="onFirstDataRendered($event)">
+                    </ag-grid-angular>
+                  </app-card>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 third-grid-col">
+                  <app-card [title]="'Third Grid'" [noActions]="true" class="table-card">
+                    <ag-grid-angular
+                      class="{{appliedThemeClassOnTable}}"
+                      [rowData]="rowData"
+                      [columnDefs]="columnDefs"
+                      [defaultColDef]="defaultColDef"
+                      [floatingFilter]="true"
+                      [animateRows]="true"
+                      [pagination]="true"
+                      [paginationPageSize]="8"
+                      (gridReady)="onGridReady($event)"
+                      (firstDataRendered)="onFirstDataRendered($event)">
+                    </ag-grid-angular>
+                  </app-card>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </mat-tab>
+        <mat-tab label="Aggregator One">
+          <app-card [title]="" [noActions]="true" class="table-card">
 
-        <div class="row page-change-row">
-          <div class="col-12 col-sm-6">
-            <label class="p-r-10 filter-on-mob p-t-5">Show </label>
-            <select name="select"
-                    (change)="onPageSizeChanged()" id="page-size"
-                    class="rows-per-page"
-                    [(ngModel)]="selectedRowsPerPage">
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20" selected>20</option>
-              <option value="25">25</option>
-              <option value="30">30</option>
-              <option value="35">35</option>
-              <option value="40">40</option>
-            </select>
-            <label class="p-l-10">entries</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <button class="btn btn-sm add" (click)="openMyModal($event)">
-              <i class="icofont icofont-contact-add"></i> Add Investor Detail
-            </button>
-          </div>
-        </div>
-      </app-card>
+            <div class="row table-row">
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <ag-grid-angular
+                  class="{{appliedThemeClassOnTable}}"
+                  [rowData]="rowData"
+                  [columnDefs]="columnDefs"
+                  [defaultColDef]="defaultColDef"
+                  [floatingFilter]="true"
+                  [animateRows]="true"
+                  [pagination]="true"
+                  [paginationPageSize]="20"
+                  (gridReady)="onGridReady($event)"
+                  (firstDataRendered)="onFirstDataRendered($event)">
+                </ag-grid-angular>
+
+              </div>
+            </div>
+
+            <div class="row page-change-row">
+              <div class="col-12 col-sm-6">
+                <label class="p-r-10 filter-on-mob p-t-5">Show </label>
+                <select name="select"
+                        (change)="onPageSizeChanged()" id="page-size"
+                        class="rows-per-page"
+                        [(ngModel)]="selectedRowsPerPage">
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20" selected>20</option>
+                  <option value="25">25</option>
+                  <option value="30">30</option>
+                  <option value="35">35</option>
+                  <option value="40">40</option>
+                </select>
+                <label class="p-l-10">entries</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button class="btn btn-sm add" (click)="openMyModal($event)">
+                  <i class="icofont icofont-contact-add"></i> Add Investor Detail
+                </button>
+              </div>
+            </div>
+          </app-card>
+        </mat-tab>
+
+        <mat-tab label="Coming Soon"> Coming Soon ...</mat-tab>
+      </mat-tab-group>
+
     </div>
   </div>
+
 </div>
 
 

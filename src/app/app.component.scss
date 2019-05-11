@@ -8,7 +8,13 @@
     display: inline;
   }
 
-
+  .bg-dark{
+    background: #424242 !important;
+  }
+  .navbar-toggler{
+    background: #67b7dc;
+    color: white !important;
+  }
 }
 
 .date-range {

@@ -4,6 +4,7 @@ import {AgGridNg2} from 'ag-grid-angular';
 import 'ag-grid-enterprise';
 import {CustomTooltipComponent} from './custom-tooltip.component';
 import {ModalDirective} from 'ngx-bootstrap/modal';
+import {object} from '@amcharts/amcharts4/core';
 
 @Component({
   selector: 'app-PMA',
@@ -17,12 +18,7 @@ export class PMAComponent implements OnInit {
 
   private frameworkComponents;
 
-  model = {
-    C: true,
-    P: false,
-    F: false,
-    total: false
-  };
+  buttonModel: any = false;
 
   mtModel = {
     C: true,
@@ -39,15 +35,31 @@ export class PMAComponent implements OnInit {
     animateRows: true,
     tooltipComponent: 'customTooltip'
   };
+  gridOptions = {
+    getRowNodeId: function(data) { return data.symbol; }
+  }
   gridApi;
   gridColumnApi;
 
   columnDefs = [
     {
-      headerName: 'Symbol', field: 'Symbol', filter: true, suppressMovable: true,
+      headerName: 'Symbol', field: 'symbol', filter: true, suppressMovable: true,
+      sort: 'asc',
       cellRenderer: (params) => {
-        return '<span class="symbol-col">'
+
+        const eDiv = document.createElement('div');
+        eDiv.innerHTML = '<span class="symbol-col">'
           + params.getValue() + '</span>';
+        const that = this;
+        const eButton = eDiv.querySelectorAll('.symbol-col')[0];
+        eButton && eButton.addEventListener('dblclick', function () {
+          that.selectedInvDetail = params.data;
+          that.selectedInvDetail['animateClassName'] = '';
+          that.selectedInvDetail['className'] = 'disabled';
+          that.manualTradeModal.show();
+        });
+
+        return eDiv;
       },
       tooltipField: 'Symbol',
       tooltipComponentParams: {color: '#ececec'}
@@ -62,20 +74,18 @@ export class PMAComponent implements OnInit {
     },
     {
       headerName: 'Volume', field: 'volume', filter: true, suppressMovable: true,
-      cellRenderer: (params) => {
+      /*cellRenderer: (params) => {
         let value = params.getValue().indexOf('-') < 0 ? params.getValue() :
           '(' + params.getValue().replace('-', '') + ')';
         return '<div class="">'
           + value + '</div>';
-      }
+      }*/
     },
     {
       headerName: 'Avg. Price', field: 'avgPrice', filter: true, suppressMovable: true,
       cellRenderer: (params) => {
-        let value = params.getValue().indexOf('-') < 0 ? params.getValue() :
-          '(' + params.getValue().replace('-', '') + ')';
-        return '<div class="">'
-          + value + '</div>';
+        let value =  params.getValue() >= 0 ? params.getValue() : '(' + (params.getValue() * -1) + ')';
+        return '<div class="">' + value + '</div>';
       }
     },
     {
@@ -105,210 +115,472 @@ export class PMAComponent implements OnInit {
         return '<div class="' + className + '">'
           + value + '</div>';
       }
+    },
+    {
+      headerName: 'Currency', field: 'currency', filter: true, resizable: true, suppressMovable: true,
+      cellClass: 'hidden', headerClass: 'hidden', width: 150,
+      cellRenderer: (params) => {
+
+        return '<div class="">'
+          +  params.getValue() + '</div>';
+      }
     }
   ];
 
-  rowData = [
+  rowDataCopy = [
     {
-      Symbol: 'AAPPL',
+      symbol: 'AAPPL',
       side: 'L',
-      volume: '339,100',
-      avgPrice: '3,0000',
+      volume: 339100,
+      avgPrice: 30000,
       netValue: '708,719',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '3,0000'
+      mtdPL: '3,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'BSE',
+      symbol: 'AAB',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'AAV',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ABT',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ABX',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'AC',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACB',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACB.WT',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACD',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACD.DB',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACI',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACO.X',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACO.Y',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACQ',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ACZ.UN',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'AD',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ADN',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ADVZ',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ADVZ.U',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'ADW.A',
+      side: 'L',
+      volume: 0,
+      avgPrice: 30000,
+      netValue: '708,719',
+      bid: '',
+      ask: '',
+      dailyPL: '0',
+      mtdPL: '3,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'BSE',
       side: 'S',
-      volume: '-29,000',
-      avgPrice: '-6,9990',
+      volume: -29000,
+      avgPrice: -69990,
       netValue: '-522,200',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-6,9990'
+      mtdPL: '-6,9990',
+      currency: 'CAD'
     },
     {
-      Symbol: 'TTS',
+      symbol: 'TTS',
       side: 'L',
-      volume: '150,000',
-      avgPrice: '18,9000',
+      volume: 150000,
+      avgPrice: 189000,
       netValue: '2,899,990',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '18,9000'
+      mtdPL: '18,9000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'YAHOO',
+      symbol: 'YAHOO',
       side: 'L',
-      volume: '100,000',
-      avgPrice: '22,9900',
+      volume: 100000,
+      avgPrice: 229900,
       netValue: '5,987,200',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-22,9900'
+      mtdPL: '-22,9900',
+      currency: 'CAD'
     },
     {
-      Symbol: 'STC',
+      symbol: 'STC',
       side: 'S',
-      volume: '-100',
-      avgPrice: '-12,0000',
+      volume: -100,
+      avgPrice: -120000,
       netValue: '3,99,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-12,0000'
+      mtdPL: '-12,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ARE',
+      symbol: 'ARE',
       side: 'S',
-      volume: '-20,000',
-      avgPrice: '32,0000',
+      volume: -20000,
+      avgPrice: 320000,
       netValue: '59,900',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '32,0000'
+      mtdPL: '32,0000',
+      currency: 'CAD'
     },
-    {Symbol: 'AEM', side: 'L', volume: '30,000', avgPrice: '33,0000', netValue: '30,000', bid: '', ask: '', dailyPL: '0', mtdPL: '33,0000'},
     {
-      Symbol: 'AGU',
+      symbol: 'AEM', side: 'L', volume: 30000, avgPrice: 330000, netValue: '30,000', bid: '', ask: '', dailyPL: '0', mtdPL: '33,0000',
+      currency: 'CAD'
+    },
+    {
+      symbol: 'AGU',
       side: 'S',
-      volume: '-20,100',
-      avgPrice: '-52,9999',
+      volume: -20100,
+      avgPrice: -529999,
       netValue: '2,11,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-52,9999'
+      mtdPL: '-52,9999',
+      currency: 'CAD'
     },
     {
-      Symbol: 'AIM',
+      symbol: 'AIM',
       side: 'S',
-      volume: '-15,000',
-      avgPrice: '-8,0000',
+      volume: -15000,
+      avgPrice: -80000,
       netValue: '1,88,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-8,0000'
+      mtdPL: '-8,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'AC.A',
+      symbol: 'AC.A',
       side: 'L',
-      volume: '20,300',
-      avgPrice: '12,0000',
+      volume: 20300,
+      avgPrice: 120000,
       netValue: '2,98,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '12,0000'
+      mtdPL: '12,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ATD.B',
+      symbol: 'ATD.B',
       side: 'L',
-      volume: '22,500',
-      avgPrice: '35,0000',
+      volume: 22500,
+      avgPrice: 350000,
       netValue: '26,880',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-35,0000'
+      mtdPL: '-35,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'AGT',
+      symbol: 'AGT',
       side: 'S',
-      volume: '-10,200',
-      avgPrice: '-28,0000',
+      volume: -10200,
+      avgPrice: -280000,
       netValue: '15,800',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '28,0000'
+      mtdPL: '28,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ALA',
+      symbol: 'ALA',
       side: 'S',
-      volume: '-40,000',
-      avgPrice: '-4,0000',
+      volume: -40000,
+      avgPrice: -40000,
       netValue: '14,900',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-4,0000'
+      mtdPL: '-4,0000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ARX',
+      symbol: 'ARX',
       side: 'L',
-      volume: '200,000',
-      avgPrice: '2,0000',
+      volume: 200000,
+      avgPrice: 20000,
       netValue: '2,22,800',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '2,22,800'
+      mtdPL: '2,22,800',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ACO.X',
+      symbol: 'ACO.X',
       side: 'L',
-      volume: '300,990',
-      avgPrice: '12,9988',
+      volume: 30090,
+      avgPrice: 129988,
       netValue: '1,92,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-1,92,000'
+      mtdPL: '-1,92,000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ACQ',
+      symbol: 'ACQ',
       side: 'S',
-      volume: '-20,800',
-      avgPrice: '-23,5550',
+      volume: -20800,
+      avgPrice: -235550,
       netValue: '1,20,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-1,20,000'
+      mtdPL: '-1,20,000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'BMO',
+      symbol: 'BMO',
       side: 'L',
-      volume: '30,000',
-      avgPrice: '12,8800',
+      volume: 30000,
+      avgPrice: 128800,
       netValue: '2,89,900',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '2,89,900'
+      mtdPL: '2,89,900',
+      currency: 'CAD'
     },
     {
-      Symbol: 'BNS',
+      symbol: 'BNS',
       side: 'S',
-      volume: '-25,500',
-      avgPrice: '-3,9000',
+      volume: -25500,
+      avgPrice: -39000,
       netValue: '1,79,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '-1,79,000'
+      mtdPL: '-1,79,000',
+      currency: 'CAD'
     },
     {
-      Symbol: 'ABX',
+      symbol: 'ABX',
       side: 'L',
-      volume: '300,800',
-      avgPrice: '2,0000',
+      volume: 300800,
+      avgPrice: 20000,
       netValue: '3,88,000',
       bid: '',
       ask: '',
       dailyPL: '0',
-      mtdPL: '3,88,000'
+      mtdPL: '3,88,000',
+      currency: 'CAD'
     },
   ];
+
+  rowData = this.rowDataCopy.filter(data=>{
+    return data.volume !== 0;
+  });
 
   columnDefsTrades = [
     {
@@ -327,7 +599,7 @@ export class PMAComponent implements OnInit {
       headerName: 'Adjusted Price', field: 'adjustedPrice', filter: true, resizable: true, suppressMovable: true,
     },
     {
-      headerName: 'Adjusted Volume', field: 'adjustedVolume', filter: true, resizable: true, suppressMovable: true
+      headerName: 'Adjusted Volume', field: 'adjustedVolume', filter: true, resizable: true, suppressMovable: true,
     },
     {
       headerName: 'Entry Date', field: 'entryDate', filter: true, resizable: true, suppressMovable: true,
@@ -352,6 +624,11 @@ export class PMAComponent implements OnInit {
     }
   ];
 
+  pnlData = {
+    unRealizedPnL: 140000,
+    totalRealizedPnL: 230000
+  };
+
   pnlTiles = [
     {
       title: 'Acc Daily P&L',
@@ -374,8 +651,19 @@ export class PMAComponent implements OnInit {
     symbol: 'ALA',
     currency: 'CAD',
     volume: 600,
-    price: 18.0322
+    avgPrice: 18.03
   };
+  selectedInvDetailCopy = {
+    symbol: 'ALA',
+    currency: 'CAD',
+    volume: 600,
+    avgPrice: 18.03
+  };
+
+  showZeroText = "Show Zero Position";
+  hideZeroText = "Hide Zero Position";
+  showHideZeroText = this.showZeroText;
+  showZeroPosition = false;
 
   constructor() {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -386,10 +674,23 @@ export class PMAComponent implements OnInit {
   }
 
   openManualTradeModal() {
+    this.selectedInvDetail = {...this.selectedInvDetailCopy};
     this.manualTradeModal.show();
   }
 
   closeManualTradeModal() {
+    this.manualTradeModal.hide();
+  }
+
+  saveManualTradeModal() {
+    this.selectedInvDetail['animateClassName'] = 'row-animate';
+    this.rowData = this.rowData.map((row)=>{
+      if(row.symbol === this.selectedInvDetail.symbol){
+        row['animateClassName'] = 'row-animate';
+      }
+
+      return row;
+    });
     this.manualTradeModal.hide();
   }
 
@@ -399,6 +700,35 @@ export class PMAComponent implements OnInit {
 
   closeAllManualTradeModal() {
     this.allManualTradeModal.hide();
+  }
+
+  showHideZeroVolume(){
+    this.showZeroPosition = !this.showZeroPosition;
+    this.showHideZeroText = this.showZeroPosition ? this.hideZeroText : this.showZeroText;
+    this.rowData = this.rowDataCopy.filter(row=>{
+      if(!this.showZeroPosition){
+        return row.volume;
+      }
+
+      return row;
+    });
+
+    /*$('.toast')['toast']('show', {
+        'show': true,
+        'autohide': false,
+        'delay': '2000'
+      },
+    );*/
+  }
+
+  drawTable(){
+    if(this.buttonModel === 'C' || this.buttonModel === 'Total'){
+      this.rowData = this.rowDataCopy.filter(data=>{
+        return data.volume !== 0;
+      });
+    }else{
+      this.rowData = [];
+    }
   }
 
   ngOnInit() {

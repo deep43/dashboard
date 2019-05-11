@@ -51,6 +51,7 @@ import {AggregatorTwoComponent} from './pages/aggregator-two/aggregator-two.comp
 import {AggregatorOneComponent} from './pages/aggregator-one/aggregator-one.component';
 import {FourGraphDemoComponent} from './pages/four-graph-demo/four-graph-demo.component';
 import {CustomTooltipComponent} from './pages/PMA/custom-tooltip.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import {CustomTooltipComponent} from './pages/PMA/custom-tooltip.component';
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
+    MatTabsModule,
     MatIconModule,
     MatBadgeModule,
     MatListModule,

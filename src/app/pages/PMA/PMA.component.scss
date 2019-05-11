@@ -6,9 +6,9 @@
   display: inline;
   margin: 0 20px;
 
-  .btn-primary:not(:disabled):not(.disabled):active,
-  .btn-primary:not(:disabled):not(.disabled).active,
-  .show > .btn-primary.dropdown-toggle {
+  .btn:not(:disabled):not(.disabled):active,
+  .btn:not(:disabled):not(.disabled).active,
+  .show > .btn.dropdown-toggle {
     background: #507e9f;
     border-color: #138f9f;
   }
@@ -17,6 +17,7 @@
     background: #67b7dc;
     border-color: #00e0f5;
     border-radius: 0;
+    color: white;
   }
 }
 
@@ -25,23 +26,28 @@
   display: inline;
 
   .btn {
-    margin: 0 10px;
+    margin: 20px 10px;
     border-radius: 0;
   }
 }
 
 .pma-infos {
-  margin: 30px -10px 20px -10px;
+  display: inline-block;
+  float: right;
 
   .info {
+    display: inline-block;
     text-align: right;
-    background: #4f4f4f;
-    padding: 10px;
-    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    /* background: #4f4f4f; */
+    /* margin-left: 20px; */
+    /* padding: 10px; */
+    padding-left: 120px;
+    /* box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
     border-radius: 0;
     font-size: 20px;
-    line-height: 2.5rem;
-    font-weight: 450;
+    line-height: 1.9rem;
+    font-weight: 400;
+
     .value {
       position: relative;
       display: inline;
@@ -93,29 +99,30 @@
   }
   .green-cell {
     @extend .red-green-cell;
-    background: #aff9aff2;
+    background: #D4E4B2;
   }
   .red-cell {
     @extend .red-green-cell;
-    background: #ff5252;
+    background: #E7AAA6;
   }
 }
+
 .manual-trade-modal {
-  .modal-content{
+  .modal-content {
     width: 45% !important;
     margin: auto;
     min-height: auto;
     background: #4f4f4f;
   }
-  &.all-trades-modal{
-    .modal-lg, .modal-xl{
+  &.all-trades-modal {
+    .modal-lg, .modal-xl {
       max-width: 1200px;
     }
     .modal-content {
       width: 100% !important;
     }
   }
-  .input-group-text{
+  .input-group-text {
     max-height: 38px;
   }
   .heading {
@@ -167,7 +174,7 @@
   }
 
   .close-row {
-    text-align: left;
+    text-align: right;
     margin-top: 20px;
     .btn {
       display: inline-block;
@@ -175,25 +182,41 @@
       color: white;
       border: none;
 
-      &:focus, &:active{
+    }
+    .save {
+      margin-right: 10px !important;
+      &:focus, &:active {
         background: #67b7dc;
         color: white;
         border: none;
         box-shadow: none !important;
-      }}
-    .save{
-      margin-right: 10px !important;
+      }
+    }
+    .close-modal {
+      background: #868686;
+      letter-spacing: 1px;
+      &:focus, &:active {
+        background: #231e1e;
+        color: white;
+        border: none;
+        box-shadow: none !important;
+      }
     }
   }
 }
+
 .manual-trade-modal {
-  .acc-label{
+  .disabled {
+    background-color: #82888e;
+    pointer-events: none;
+  }
+  .acc-label {
     padding-right: 15px;
   }
-  .modal-header{
+  .modal-header {
     padding: 0 1rem;
   }
-  .heading{
+  .heading {
     padding-left: 20px;
   }
 
@@ -203,41 +226,57 @@
     border: none;
     margin-left: 10px;
 
-    &:focus, &:active{
+    &:focus, &:active {
       background: #67b7dc;
       color: white;
       border: none;
     }
 
-    &:first-child{
+    &:first-child {
       margin-left: 0;
     }
   }
 
-  input, select{
+  input, select {
     background: #424242;
     color: white;
     border-color: #67b7dc;
 
-    &::placeholder{
+    &::placeholder {
       color: #c1c1c1;
     }
 
-    &:focus{
+    &:focus {
       background: #212121;
       color: white;
     }
   }
 
-  .text-success{
+  .text-success {
     color: #67b7dc;
   }
 }
 
-.modal-backdrop{
+.modal-backdrop {
   display: none;
 }
 
 .modal-open .modal {
   background: rgba(0, 0, 0, 0.62);
+}
+
+.ag-header-icon.ag-header-cell-menu-button {
+  opacity: 1 !important;
+}
+
+.pma-grid {
+
+  .ag-theme-balham-dark .ag-cell {
+    padding-right: 0 !important;
+  }
+
+  .hidden{
+    display: none;
+    width: 1px !important;
+  }
 }

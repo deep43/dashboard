@@ -6,10 +6,11 @@ import 'ag-grid-enterprise';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ModalDirective} from 'ngx-bootstrap/modal';
+import {MatTabChangeEvent} from '@angular/material';
 
 declare var $: any;
 
-interface   Investor {
+interface Investor {
   id?: number;
   investor?: string;
   vendor?: string;
@@ -51,9 +52,9 @@ export class AggregatorOneComponent implements OnInit {
       cellRenderer: (params) => {
         return '<a href="#/aggregatortwo" class="client-link">' + params.getValue() + '</a>';
       },
-      width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true
+      width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true
     },
-    {headerName: 'Vendor', field: 'vendor', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Vendor', field: 'vendor', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
     {
       headerName: 'Investor DeadLine',
       cellRenderer: (params) => {
@@ -61,16 +62,16 @@ export class AggregatorOneComponent implements OnInit {
         const renderedDate = date ? `${date.year}-${date.month}-${date.day}` : 'TBD';
         return '<span>' + renderedDate + '</span>';
       },
-      field: 'deadLine', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true
+      field: 'deadLine', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true
     },
-    {headerName: 'Data Set', field: 'dataSet', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
-    {headerName: 'Status', field: 'status', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
-    {headerName: 'Errors', field: 'errors', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
-    {headerName: 'Review', field: 'review', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
-    {headerName: 'Published', field: 'published', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
-    {headerName: 'Review', field: 'review', width: 100, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Data Set', field: 'dataSet', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Status', field: 'status', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Errors', field: 'errors', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Review', field: 'review', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Published', field: 'published', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
+    {headerName: 'Review', field: 'review', width: 200, filter: 'agTextColumnFilter', pivot: true, suppressMovable: true},
     {
-      headerName: 'Edit', width: 70, filter: false, resizable: true, suppressMovable: true,
+      headerName: 'Edit', width: 150, filter: false, resizable: true, suppressMovable: true,
       cellStyle: {'text-align': 'center'},
       cellRenderer: (params) => {
         const eDiv = document.createElement('div');
@@ -286,6 +287,86 @@ export class AggregatorOneComponent implements OnInit {
       published: 'Published',
       review: 222
     },
+    {
+      id: 20, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 21, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 23, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 24, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 25, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 26, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 27, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
+    {
+      id: 28, investor: 'Commcise Test',
+      vendor: 'OneAccess',
+      deadLine: {day: 9, month: 12, year: 2018},
+      dataSet: 'Jan\'19 - Mar\'19',
+      status: 'In Progress',
+      errors: 14,
+      published: 'Published',
+      review: 222
+    },
   ];
   selectedRowsPerPage = 20;
 
@@ -308,7 +389,7 @@ export class AggregatorOneComponent implements OnInit {
   }
 
   onFirstDataRendered(params) {
-    params.api.sizeColumnsToFit();
+    //params.api.sizeColumnsToFit();
   }
 
   addInvestorDetail(event) {
@@ -335,6 +416,12 @@ export class AggregatorOneComponent implements OnInit {
   closeMyModal(event) {
     this.selectedInvDetail = {};
     this.modal.hide();
+  }
+
+  onTabChange(event: MatTabChangeEvent) {
+    console.log('event => ', event);
+    console.log('index => ', event.index);
+    console.log('tab => ', event.tab);
   }
 
   ngOnInit() {

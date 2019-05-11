@@ -5,7 +5,22 @@
     margin-bottom: 25px;
     border-bottom: 1px solid #c1c1c1;
   }
-
+  .edit {
+    color: white !important;
+    background: #67b7dc;
+    line-height: 0.8rem;
+  }
+  .first-grid-col{
+    margin-top: 0;
+    height: 84vh;
+  }
+  .second-grid-col{
+    height: 41vh;
+  }
+  .third-grid-col{
+    margin-top: 16px;
+    height: 41vh;
+  }
   .progress-card {
     .card-block {
       padding: 12px 20px;
@@ -223,4 +238,32 @@
 
 .p-t-5{
   padding-top: 5px;
+}
+.mat-tab-labels{
+  justify-content: center;
+}
+.mat-tab-label-active {
+  opacity: 1 !important;
+}
+.mat-tab-label {
+  width: 33.3%;
+}
+.mat-tab-header{
+  background: #424242;
+}
+
+.mat-ink-bar{
+  background: #ffd507 !important;
+}
+
+.mat-tab-body-active{
+  overflow-y: hidden !important;
+}
+
+.mat-tab-body-content{
+  overflow: hidden !important;
+}
+
+.mat-tab-body-wrapper{
+  margin-top: 20px;
 }
